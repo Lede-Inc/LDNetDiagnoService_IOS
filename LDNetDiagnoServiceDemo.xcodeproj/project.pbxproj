@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		629AF6E71A0125E5001CBB3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E61A0125E5001CBB3E /* main.m */; };
+		629AF6EA1A0125E5001CBB3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E91A0125E5001CBB3E /* AppDelegate.m */; };
+		629AF6ED1A0125E5001CBB3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6EC1A0125E5001CBB3E /* ViewController.m */; };
+		629AF6F01A0125E5001CBB3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 629AF6EE1A0125E5001CBB3E /* Main.storyboard */; };
+		629AF6F21A0125E5001CBB3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 629AF6F11A0125E5001CBB3E /* Images.xcassets */; };
+		629AF6F51A0125E5001CBB3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 629AF6F31A0125E5001CBB3E /* LaunchScreen.xib */; };
+		629AF7011A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7001A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.m */; };
+		629AF7151A012630001CBB3E /* LDNetDiagnoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF70C1A012630001CBB3E /* LDNetDiagnoService.m */; };
+		629AF7161A012630001CBB3E /* LDNetPing.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF70E1A012630001CBB3E /* LDNetPing.m */; };
+		629AF7171A012630001CBB3E /* LDNetTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7101A012630001CBB3E /* LDNetTimer.m */; };
+		629AF7181A012630001CBB3E /* LDNetTraceRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7121A012630001CBB3E /* LDNetTraceRoute.m */; };
+		629AF7191A012630001CBB3E /* LDSimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7141A012630001CBB3E /* LDSimplePing.m */; };
+		629AF71B1A012644001CBB3E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629AF71A1A012644001CBB3E /* CoreTelephony.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		629AF6FB1A0125E5001CBB3E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 629AF6D91A0125E5001CBB3E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 629AF6E01A0125E5001CBB3E;
+			remoteInfo = LDNetDiagnoServiceDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		629AF6E11A0125E5001CBB3E /* LDNetDiagnoServiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LDNetDiagnoServiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		629AF6E51A0125E5001CBB3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		629AF6E61A0125E5001CBB3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		629AF6E81A0125E5001CBB3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		629AF6E91A0125E5001CBB3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		629AF6EB1A0125E5001CBB3E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		629AF6EC1A0125E5001CBB3E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		629AF6EF1A0125E5001CBB3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		629AF6F11A0125E5001CBB3E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		629AF6F41A0125E5001CBB3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		629AF6FA1A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LDNetDiagnoServiceDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		629AF6FF1A0125E5001CBB3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		629AF7001A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LDNetDiagnoServiceDemoTests.m; sourceTree = "<group>"; };
+		629AF70B1A012630001CBB3E /* LDNetDiagnoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetDiagnoService.h; sourceTree = "<group>"; };
+		629AF70C1A012630001CBB3E /* LDNetDiagnoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetDiagnoService.m; sourceTree = "<group>"; };
+		629AF70D1A012630001CBB3E /* LDNetPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetPing.h; sourceTree = "<group>"; };
+		629AF70E1A012630001CBB3E /* LDNetPing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetPing.m; sourceTree = "<group>"; };
+		629AF70F1A012630001CBB3E /* LDNetTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetTimer.h; sourceTree = "<group>"; };
+		629AF7101A012630001CBB3E /* LDNetTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetTimer.m; sourceTree = "<group>"; };
+		629AF7111A012630001CBB3E /* LDNetTraceRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetTraceRoute.h; sourceTree = "<group>"; };
+		629AF7121A012630001CBB3E /* LDNetTraceRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetTraceRoute.m; sourceTree = "<group>"; };
+		629AF7131A012630001CBB3E /* LDSimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSimplePing.h; sourceTree = "<group>"; };
+		629AF7141A012630001CBB3E /* LDSimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSimplePing.m; sourceTree = "<group>"; };
+		629AF71A1A012644001CBB3E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		629AF6DE1A0125E5001CBB3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				629AF71B1A012644001CBB3E /* CoreTelephony.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		629AF6F71A0125E5001CBB3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		629AF6D81A0125E5001CBB3E = {
+			isa = PBXGroup;
+			children = (
+				629AF71A1A012644001CBB3E /* CoreTelephony.framework */,
+				629AF70A1A012630001CBB3E /* LDNetDiagnoService */,
+				629AF6E31A0125E5001CBB3E /* LDNetDiagnoServiceDemo */,
+				629AF6FD1A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests */,
+				629AF6E21A0125E5001CBB3E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		629AF6E21A0125E5001CBB3E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				629AF6E11A0125E5001CBB3E /* LDNetDiagnoServiceDemo.app */,
+				629AF6FA1A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		629AF6E31A0125E5001CBB3E /* LDNetDiagnoServiceDemo */ = {
+			isa = PBXGroup;
+			children = (
+				629AF6E81A0125E5001CBB3E /* AppDelegate.h */,
+				629AF6E91A0125E5001CBB3E /* AppDelegate.m */,
+				629AF6EB1A0125E5001CBB3E /* ViewController.h */,
+				629AF6EC1A0125E5001CBB3E /* ViewController.m */,
+				629AF6EE1A0125E5001CBB3E /* Main.storyboard */,
+				629AF6F11A0125E5001CBB3E /* Images.xcassets */,
+				629AF6F31A0125E5001CBB3E /* LaunchScreen.xib */,
+				629AF6E41A0125E5001CBB3E /* Supporting Files */,
+			);
+			path = LDNetDiagnoServiceDemo;
+			sourceTree = "<group>";
+		};
+		629AF6E41A0125E5001CBB3E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				629AF6E51A0125E5001CBB3E /* Info.plist */,
+				629AF6E61A0125E5001CBB3E /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		629AF6FD1A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				629AF7001A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.m */,
+				629AF6FE1A0125E5001CBB3E /* Supporting Files */,
+			);
+			path = LDNetDiagnoServiceDemoTests;
+			sourceTree = "<group>";
+		};
+		629AF6FE1A0125E5001CBB3E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				629AF6FF1A0125E5001CBB3E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		629AF70A1A012630001CBB3E /* LDNetDiagnoService */ = {
+			isa = PBXGroup;
+			children = (
+				629AF70B1A012630001CBB3E /* LDNetDiagnoService.h */,
+				629AF70C1A012630001CBB3E /* LDNetDiagnoService.m */,
+				629AF70D1A012630001CBB3E /* LDNetPing.h */,
+				629AF70E1A012630001CBB3E /* LDNetPing.m */,
+				629AF70F1A012630001CBB3E /* LDNetTimer.h */,
+				629AF7101A012630001CBB3E /* LDNetTimer.m */,
+				629AF7111A012630001CBB3E /* LDNetTraceRoute.h */,
+				629AF7121A012630001CBB3E /* LDNetTraceRoute.m */,
+				629AF7131A012630001CBB3E /* LDSimplePing.h */,
+				629AF7141A012630001CBB3E /* LDSimplePing.m */,
+			);
+			path = LDNetDiagnoService;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		629AF6E01A0125E5001CBB3E /* LDNetDiagnoServiceDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 629AF7041A0125E5001CBB3E /* Build configuration list for PBXNativeTarget "LDNetDiagnoServiceDemo" */;
+			buildPhases = (
+				629AF6DD1A0125E5001CBB3E /* Sources */,
+				629AF6DE1A0125E5001CBB3E /* Frameworks */,
+				629AF6DF1A0125E5001CBB3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LDNetDiagnoServiceDemo;
+			productName = LDNetDiagnoServiceDemo;
+			productReference = 629AF6E11A0125E5001CBB3E /* LDNetDiagnoServiceDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		629AF6F91A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 629AF7071A0125E5001CBB3E /* Build configuration list for PBXNativeTarget "LDNetDiagnoServiceDemoTests" */;
+			buildPhases = (
+				629AF6F61A0125E5001CBB3E /* Sources */,
+				629AF6F71A0125E5001CBB3E /* Frameworks */,
+				629AF6F81A0125E5001CBB3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				629AF6FC1A0125E5001CBB3E /* PBXTargetDependency */,
+			);
+			name = LDNetDiagnoServiceDemoTests;
+			productName = LDNetDiagnoServiceDemoTests;
+			productReference = 629AF6FA1A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		629AF6D91A0125E5001CBB3E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "庞辉";
+				TargetAttributes = {
+					629AF6E01A0125E5001CBB3E = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					629AF6F91A0125E5001CBB3E = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 629AF6E01A0125E5001CBB3E;
+					};
+				};
+			};
+			buildConfigurationList = 629AF6DC1A0125E5001CBB3E /* Build configuration list for PBXProject "LDNetDiagnoServiceDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 629AF6D81A0125E5001CBB3E;
+			productRefGroup = 629AF6E21A0125E5001CBB3E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				629AF6E01A0125E5001CBB3E /* LDNetDiagnoServiceDemo */,
+				629AF6F91A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		629AF6DF1A0125E5001CBB3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				629AF6F01A0125E5001CBB3E /* Main.storyboard in Resources */,
+				629AF6F51A0125E5001CBB3E /* LaunchScreen.xib in Resources */,
+				629AF6F21A0125E5001CBB3E /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		629AF6F81A0125E5001CBB3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		629AF6DD1A0125E5001CBB3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				629AF6ED1A0125E5001CBB3E /* ViewController.m in Sources */,
+				629AF7191A012630001CBB3E /* LDSimplePing.m in Sources */,
+				629AF7151A012630001CBB3E /* LDNetDiagnoService.m in Sources */,
+				629AF6EA1A0125E5001CBB3E /* AppDelegate.m in Sources */,
+				629AF7161A012630001CBB3E /* LDNetPing.m in Sources */,
+				629AF6E71A0125E5001CBB3E /* main.m in Sources */,
+				629AF7171A012630001CBB3E /* LDNetTimer.m in Sources */,
+				629AF7181A012630001CBB3E /* LDNetTraceRoute.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		629AF6F61A0125E5001CBB3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				629AF7011A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		629AF6FC1A0125E5001CBB3E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 629AF6E01A0125E5001CBB3E /* LDNetDiagnoServiceDemo */;
+			targetProxy = 629AF6FB1A0125E5001CBB3E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		629AF6EE1A0125E5001CBB3E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				629AF6EF1A0125E5001CBB3E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		629AF6F31A0125E5001CBB3E /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				629AF6F41A0125E5001CBB3E /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		629AF7021A0125E5001CBB3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		629AF7031A0125E5001CBB3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		629AF7051A0125E5001CBB3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		629AF7061A0125E5001CBB3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		629AF7081A0125E5001CBB3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LDNetDiagnoServiceDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LDNetDiagnoServiceDemo.app/LDNetDiagnoServiceDemo";
+			};
+			name = Debug;
+		};
+		629AF7091A0125E5001CBB3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LDNetDiagnoServiceDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LDNetDiagnoServiceDemo.app/LDNetDiagnoServiceDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		629AF6DC1A0125E5001CBB3E /* Build configuration list for PBXProject "LDNetDiagnoServiceDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				629AF7021A0125E5001CBB3E /* Debug */,
+				629AF7031A0125E5001CBB3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		629AF7041A0125E5001CBB3E /* Build configuration list for PBXNativeTarget "LDNetDiagnoServiceDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				629AF7051A0125E5001CBB3E /* Debug */,
+				629AF7061A0125E5001CBB3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		629AF7071A0125E5001CBB3E /* Build configuration list for PBXNativeTarget "LDNetDiagnoServiceDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				629AF7081A0125E5001CBB3E /* Debug */,
+				629AF7091A0125E5001CBB3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 629AF6D91A0125E5001CBB3E /* Project object */;
+}
