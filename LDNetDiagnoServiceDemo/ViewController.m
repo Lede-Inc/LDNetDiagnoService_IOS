@@ -41,12 +41,13 @@
     _txtView_log.font = [UIFont systemFontOfSize:10.0f];
     _txtView_log.textAlignment = NSTextAlignmentLeft;
     _txtView_log.scrollEnabled = YES;
+    _txtView_log.editable = NO;
     _txtView_log.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:_txtView_log];
     
     
     // Do any additional setup after loading the view, typically from a nib.
-    _netDiagnoService = [[LDNetDiagnoService alloc] initWithAppCode:@"testDemo" userID:@"huipang@corp.netease.com" dormain:@"caipiao.163.com"];
+    _netDiagnoService = [[LDNetDiagnoService alloc] initWithAppCode:@"testDemo" deviceID:@"" userID:@"huipang@corp.netease.com" dormain:@"caipiao.163.com"];
     _netDiagnoService.delegate = self;
     _logInfo = @"";
     [_netDiagnoService startNetDiagnosis];

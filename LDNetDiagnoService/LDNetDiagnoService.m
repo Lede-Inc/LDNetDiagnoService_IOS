@@ -24,6 +24,7 @@
 
 @implementation LDNetDiagnoService
 @synthesize appCode = _appCode;
+@synthesize deviceID = _deviceID;
 @synthesize UID = _UID;
 @synthesize dormain = _dormain;
 
@@ -32,11 +33,13 @@
  * 初始化网络诊断服务
  */
 -(id) initWithAppCode:(NSString *)theAppCode
+                deviceID:(NSString *)theDeviceID
                userID:(NSString *)theUID
               dormain:(NSString *)theDormain {
     self = [super init];
     if(self){
         _appCode = theAppCode;
+        _deviceID = theDeviceID;
         _UID = theUID;
         _dormain = theDormain;
         
@@ -59,6 +62,11 @@
     UIDevice* device = [UIDevice currentDevice];
     [self recordStepInfo:[NSString stringWithFormat:@"机器类型:\t%@", [device systemName]]];
     [self recordStepInfo:[NSString stringWithFormat:@"系统版本:\t%@", [device systemVersion]]];
+    if( !_deviceID || [_deviceID isEqualToString:@""]){
+        _deviceID = [self uniqueAppInstanceIdentifier];
+    }
+    [self recordStepInfo:[NSString stringWithFormat:@"机器ID:\t%@", _deviceID]];
+
     
     
     //运营商信息
@@ -166,6 +174,22 @@
         [self.delegate netDiagnosisStepInfo:[NSString stringWithFormat:@"%@\n", stepInfo]];
     }
 }
+
+
+/**
+ * 获取deviceID
+ */
+- (NSString*)uniqueAppInstanceIdentifier
+{
+    NSString *app_uuid = @"";
+    CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+    CFStringRef uuidString = CFUUIDCreateString(kCFAllocatorDefault, uuidRef);
+    app_uuid = [NSString stringWithString:(__bridge NSString*)uuidString];
+    CFRelease(uuidString);
+    CFRelease(uuidRef);
+    return app_uuid;
+}
+
 
 
 

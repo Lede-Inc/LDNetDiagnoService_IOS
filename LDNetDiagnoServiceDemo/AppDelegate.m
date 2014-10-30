@@ -17,6 +17,7 @@
 @implementation MainViewController
 
 -(void)viewDidLoad {
+    [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"网络诊断Demo";
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
