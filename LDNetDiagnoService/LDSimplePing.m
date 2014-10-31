@@ -375,10 +375,13 @@ static uint16_t in_cksum(const void *buffer, size_t bufferLen)
     return result;
 }
 
-- (void)readData
-    // Called by the socket handling code (SocketReadCallback) to process an ICMP 
-    // messages waiting on the socket.
-{
+
+/**
+ * Called by the socket handling code (SocketReadCallback) to process an ICMP
+ * messages waiting on the socket.
+ * 将数据转化成obj-c对象
+ */
+- (void)readData{
     int                     err;
     struct sockaddr_storage addr;
     socklen_t               addrLen;
@@ -436,10 +439,12 @@ static uint16_t in_cksum(const void *buffer, size_t bufferLen)
     // let CFSocket call us again.
 }
 
-static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataRef address, const void *data, void *info)
-    // This C routine is called by CFSocket when there's data waiting on our 
-    // ICMP socket.  It just redirects the call to Objective-C code.
-{
+
+/**
+ * 监听ICMP套接字上是否有数据
+ * 将数据转化成obj-c对象
+ */
+static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataRef address, const void *data, void *info){
     LDSimplePing *    obj;
     
     obj = (__bridge LDSimplePing *) info;
@@ -459,12 +464,10 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
 
 
 /**
- * 解析当前Host的IP地址，创建socket
- *
+ * 直接通过host地址开始ping命令
+ * 创建socket，在当前运行线程中通过CFSocket封装
  */
-- (void)startWithHostAddress
-    // We have a host address, so let's actually start pinging it.
-{
+- (void)startWithHostAddress{
     int                     err;
     int                     fd;
     const struct sockaddr * addrPtr;
@@ -497,23 +500,20 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
         CFSocketContext     context = {0, (__bridge void *)(self), NULL, NULL, NULL};
         CFRunLoopSourceRef  rls;
         
-        // Wrap it in a CFSocket and schedule it on the runloop.
-        
+        //可以使用一个已经存在的BSD套接字来创建CRSocket，
         self->_socket = CFSocketCreateWithNative(NULL, fd, kCFSocketReadCallBack, SocketReadCallback, &context);
         assert(self->_socket != NULL);
         
         // The socket will now take care of cleaning up our file descriptor.
-        
         assert( CFSocketGetSocketFlags(self->_socket) & kCFSocketCloseOnInvalidate );
         fd = -1;
         
+        //为CFSocket创建一个CFRunLoop。
         rls = CFSocketCreateRunLoopSource(NULL, self->_socket, 0);
         assert(rls != NULL);
-        
         CFRunLoopAddSource(CFRunLoopGetCurrent(), rls, kCFRunLoopDefaultMode);
         
         CFRelease(rls);
-
         if ( (self.delegate != nil) && [self.delegate respondsToSelector:@selector(simplePing:didStartWithAddress:)] ) {
             [self.delegate simplePing:self didStartWithAddress:self.hostAddress];
         }
@@ -584,7 +584,8 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 
 /**
  * 开启ping命令
- *
+ * 如果用户直接提供了一个ip地址，就可以直接开始执行ping命令
+ * 否则需要创建socket获取host
  */
 - (void)start
     // See comment in header.
