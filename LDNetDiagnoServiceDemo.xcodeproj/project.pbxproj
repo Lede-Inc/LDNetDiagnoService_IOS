@@ -205,6 +205,7 @@
 				TargetAttributes = {
 					629AF6E01A0125E5001CBB3E = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 35B2KE884X;
 					};
 					629AF6F91A0125E5001CBB3E = {
 						CreatedOnToolsVersion = 6.1;
@@ -387,7 +388,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hui Pang (WCA4YDTCBX)";
 				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -397,7 +400,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hui Pang (WCA4YDTCBX)";
 				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -456,6 +461,7 @@
 				629AF7061A0125E5001CBB3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		629AF7071A0125E5001CBB3E /* Build configuration list for PBXNativeTarget "LDNetDiagnoServiceDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +470,7 @@
 				629AF7091A0125E5001CBB3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

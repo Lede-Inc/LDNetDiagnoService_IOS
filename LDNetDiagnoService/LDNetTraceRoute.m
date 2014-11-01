@@ -102,7 +102,7 @@
         icmp = false;
         NSMutableString *traceTTLLog = [[NSMutableString alloc] initWithCapacity:20];
         [traceTTLLog appendFormat:@"%d\t", ttl];
-        int ttlStart = [LDNetTimer getMicroSeconds];
+        long ttlStart = [LDNetTimer getMicroSeconds];
         for(int try = 0;try < maxAttempts;try++) {
             delta = -1;
             startTime = [LDNetTimer getMicroSeconds];
@@ -114,6 +114,7 @@
             
             long res = 0;
             //从（已连接）套接口上接收数据，并捕获数据发送源的地址。
+            memset(buf, 0, 100);
             if( (res = recvfrom(recv_sock, buf, 100, 0, (struct sockaddr *)&fromAddr,&n))<0) {
                 error = true;
                 [traceTTLLog appendFormat:@"%s\t",  strerror(errno)];
