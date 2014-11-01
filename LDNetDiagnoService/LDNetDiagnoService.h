@@ -41,21 +41,23 @@
  */
 @interface LDNetDiagnoService : NSObject {
 }
-@property (nonatomic, strong) NSString *appCode; //客户端标记
-//客户端机器ID，如果不传入会默认取API提供的机器ID
-@property (nonatomic, strong) NSString *deviceID;
-@property (nonatomic, strong) NSString *UID; //用户ID
-@property (nonatomic, strong) NSString *dormain; //接口域名
 @property (nonatomic, weak, readwrite)id<LDNetDiagnoServiceDelegate> delegate; //向调用者输出诊断信息接口
 
 
 /**
  * 初始化网络诊断服务
+ * theAppCode,theUID, theDormain为必填项
  */
 -(id) initWithAppCode:(NSString *)theAppCode
-             deviceID:(NSString *)theDeviceID
+              appName:(NSString *)theAppName
+           appVersion:(NSString *)theAppVersion
                userID:(NSString *)theUID
-              dormain:(NSString *)theDormain;
+             deviceID:(NSString *)theDeviceID
+              dormain:(NSString *)theDormain
+          carrierName:(NSString *)theCarrierName
+       ISOCountryCode:(NSString *)theISOCountryCode
+    MobileCountryCode:(NSString *)theMobileCountryCode
+        MobileNetCode:(NSString *)theMobileNetCode;
 
 
 /**

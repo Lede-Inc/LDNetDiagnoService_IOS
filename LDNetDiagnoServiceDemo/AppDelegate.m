@@ -8,41 +8,6 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-@interface MainViewController : UIViewController{
-    
-}
-
-@end
-
-@implementation MainViewController
-
--(void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"网络诊断Demo";
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake((self.view.frame.size.width - 200.0f)/2.0f, (self.view.frame.size.height-100.0f)/2.0f, 200.0f, 100.0f);
-    btn.layer.cornerRadius = 5.0f;
-    btn.layer.masksToBounds = YES;
-    [btn setBackgroundColor:[UIColor lightGrayColor]];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [btn.titleLabel setNumberOfLines:2];
-    [btn setTitle:@"click\n开始诊断" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(openWebViewCtroller) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-}
-
--(void)openWebViewCtroller {
-    ViewController *webviewCtrl = [[ViewController alloc] init];
-    [self.navigationController pushViewController:webviewCtrl animated:YES];
-}
-
-
-@end
-
-
-
 @interface AppDelegate ()
 
 @end
@@ -52,7 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[MainViewController alloc] init]];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     return YES;

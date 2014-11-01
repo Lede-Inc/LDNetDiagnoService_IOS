@@ -101,7 +101,8 @@
         //每一步连续发送maxAttenpts报文
         icmp = false;
         NSMutableString *traceTTLLog = [[NSMutableString alloc] initWithCapacity:20];
-        [traceTTLLog appendFormat:@"\t%d\t", ttl];
+        [traceTTLLog appendFormat:@"%d\t", ttl];
+        int ttlStart = [LDNetTimer getMicroSeconds];
         for(int try = 0;try < maxAttempts;try++) {
             delta = -1;
             startTime = [LDNetTimer getMicroSeconds];
@@ -125,9 +126,9 @@
                 inet_ntop(AF_INET, &fromAddr.sin_addr.s_addr, display, sizeof (display));
                 NSString *hostAddress = [NSString stringWithFormat:@"%s",display];
                 if(try == 0){
-                    [traceTTLLog appendFormat:@"%@\t\t", hostAddress];
+                    [traceTTLLog appendFormat:@"%@\t", hostAddress];
                 }
-                [traceTTLLog appendFormat:@"%0.3fms\t", (float)delta/1000];
+                [traceTTLLog appendFormat:@"%0.2fms\t", (float)delta/1000];
             }
             // On teste si l'utilisateur a demandé l'arrêt du traceroute
             @synchronized(running) {
@@ -144,7 +145,8 @@
         if(icmp) {
             [self.delegate appendRouteLog:traceTTLLog];
         } else {
-            [self.delegate appendRouteLog:[NSString stringWithFormat:@"\t%d\t\t*\t*", ttl]];
+            float lastTTLDuration = (float)[LDNetTimer computeDurationSince:ttlStart]/1000;
+            [self.delegate appendRouteLog:[NSString stringWithFormat:@"%d\t%s\t%0.2fms", ttl, ip_addr, lastTTLDuration]];
             break;
         }
         ttl++;

@@ -11,10 +11,12 @@
 
 @interface ViewController () <LDNetDiagnoServiceDelegate> {
     UIActivityIndicatorView *_indicatorView;
+    UIButton *btn;
     UITextView *_txtView_log;
     
     NSString *_logInfo;
     LDNetDiagnoService *_netDiagnoService;
+    BOOL _isRunning;
 }
 
 @end
@@ -24,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"诊断信息";
+    self.navigationItem.title = @"网络诊断Demo";
     
     _indicatorView = [[UIActivityIndicatorView alloc]
                       initWithActivityIndicatorStyle:
@@ -32,25 +34,56 @@
     _indicatorView.frame = CGRectMake(0, 0, 30, 30);
     _indicatorView.hidden = NO;
     _indicatorView.hidesWhenStopped = YES;
-    [_indicatorView startAnimating];
+    [_indicatorView stopAnimating];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_indicatorView];
     self.navigationItem.rightBarButtonItem = rightItem;
     
+
+    btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(10.0f, 79.0f, 100.0f, 50.0f);
+    [btn setBackgroundColor:[UIColor lightGrayColor]];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [btn.titleLabel setNumberOfLines:2];
+    [btn setTitle:@"开始诊断" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(startNetDiagnosis) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+
+    
     _txtView_log = [[UITextView alloc] initWithFrame:CGRectZero];
+    _txtView_log.layer.borderWidth = 1.0f;
+    _txtView_log.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _txtView_log.backgroundColor = [UIColor whiteColor];
     _txtView_log.font = [UIFont systemFontOfSize:10.0f];
     _txtView_log.textAlignment = NSTextAlignmentLeft;
     _txtView_log.scrollEnabled = YES;
     _txtView_log.editable = NO;
-    _txtView_log.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
+    _txtView_log.frame = CGRectMake(0.0f, 140.0f, self.view.frame.size.width, self.view.frame.size.height-120.0f);
     [self.view addSubview:_txtView_log];
     
-    
     // Do any additional setup after loading the view, typically from a nib.
-    _netDiagnoService = [[LDNetDiagnoService alloc] initWithAppCode:@"testDemo" deviceID:@"" userID:@"huipang@corp.netease.com" dormain:@"caipiao.163.com"];
+    _netDiagnoService = [[LDNetDiagnoService alloc]
+                         initWithAppCode:@"test" appName:@"网络诊断应用" appVersion:@"1.0.0" userID:@"huipang@corp.netease.com" deviceID:nil dormain:@"caipiao.163.com" carrierName:nil ISOCountryCode:nil MobileCountryCode:nil MobileNetCode:nil];
     _netDiagnoService.delegate = self;
-    _logInfo = @"";
-    [_netDiagnoService startNetDiagnosis];
+    _isRunning = NO;
+
+}
+
+
+-(void) startNetDiagnosis {
+    if(!_isRunning){
+        [_indicatorView startAnimating];
+        [btn setTitle:@"停止诊断" forState:UIControlStateNormal];
+        _txtView_log.text = @"";
+        _logInfo = @"";
+        [_netDiagnoService startNetDiagnosis];
+    } else {
+        [_indicatorView stopAnimating];
+        [btn setTitle:@"开始诊断" forState:UIControlStateNormal];
+        [_netDiagnoService stopNetDialogsis];
+    }
+    
+    _isRunning = !_isRunning;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,7 +112,8 @@
     //可以保存到文件，也可以通过邮件发送回来
     dispatch_async(dispatch_get_main_queue(), ^{
         [_indicatorView stopAnimating];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"邮件" style:UIBarButtonItemStylePlain target:self action:@selector(emailLogInfo)];
+        [btn setTitle:@"开始诊断" forState:UIControlStateNormal];
+        _isRunning = NO;
     });
 }
 

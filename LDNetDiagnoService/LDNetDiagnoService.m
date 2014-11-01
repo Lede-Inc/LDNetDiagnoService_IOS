@@ -13,8 +13,18 @@
 #import "LDNetTraceRoute.h"
 
 @interface LDNetDiagnoService ()<LDNetPingDelegate, LDNetTraceRouteDelegate> {
-    NSMutableString *_logInfo; //记录网络诊断log日志
+    NSString *_appCode; //客户端标记
+    NSString *_appName;
+    NSString *_appVersion;
+    NSString *_UID; //用户ID
+    NSString *_deviceID; //客户端机器ID，如果不传入会默认取API提供的机器ID
+    NSString *_dormain; //接口域名
+    NSString *_carrierName;
+    NSString *_ISOCountryCode;
+    NSString *_MobileCountryCode;
+    NSString *_MobileNetCode;
     
+    NSMutableString *_logInfo; //记录网络诊断log日志
     BOOL _isRunning;
     LDNetPing *_netPinger;
     LDNetTraceRoute *_traceRouter;
@@ -23,25 +33,33 @@
 @end
 
 @implementation LDNetDiagnoService
-@synthesize appCode = _appCode;
-@synthesize deviceID = _deviceID;
-@synthesize UID = _UID;
-@synthesize dormain = _dormain;
-
 #pragma mark - public method
 /**
  * 初始化网络诊断服务
  */
 -(id) initWithAppCode:(NSString *)theAppCode
-                deviceID:(NSString *)theDeviceID
+              appName:(NSString *)theAppName
+           appVersion:(NSString *)theAppVersion
                userID:(NSString *)theUID
-              dormain:(NSString *)theDormain {
+             deviceID:(NSString *)theDeviceID
+              dormain:(NSString *)theDormain
+          carrierName:(NSString *)theCarrierName
+       ISOCountryCode:(NSString *)theISOCountryCode
+    MobileCountryCode:(NSString *)theMobileCountryCode
+        MobileNetCode:(NSString *)theMobileNetCode
+{
     self = [super init];
     if(self){
         _appCode = theAppCode;
-        _deviceID = theDeviceID;
+        _appName = theAppName;
+        _appVersion = theAppVersion;
         _UID = theUID;
+        _deviceID = theDeviceID;
         _dormain = theDormain;
+        _carrierName = theCarrierName;
+        _ISOCountryCode = theISOCountryCode;
+        _MobileCountryCode = theMobileCountryCode;
+        _MobileNetCode = theMobileNetCode;
         
         _logInfo = [[NSMutableString alloc] initWithCapacity:20];
         _isRunning = NO;
@@ -52,32 +70,52 @@
 
 -(void) recordCurrentAppVersion {
     //输出应用版本信息和用户ID
-    [self recordStepInfo: [NSString stringWithFormat:@"应用code:\t%@", _appCode]];
+    [self recordStepInfo: [NSString stringWithFormat:@"应用code: %@", _appCode]];
     NSDictionary *dicBundle = [[NSBundle mainBundle] infoDictionary];
-    [self recordStepInfo: [NSString stringWithFormat:@"应用名称:\t%@", [dicBundle objectForKey:@"CFBundleDisplayName"]]];
-    [self recordStepInfo: [NSString stringWithFormat:@"应用版本:\t%@", [dicBundle objectForKey:@"CFBundleShortVersionString"]]];
-    [self recordStepInfo:[NSString stringWithFormat:@"用户id:\t%@", _UID]];
+    
+    if(!_appName || [_appName isEqualToString:@""]){
+        _appName = [dicBundle objectForKey:@"CFBundleDisplayName"];
+    }
+    [self recordStepInfo: [NSString stringWithFormat:@"应用名称: %@", _appName]];
+    
+    if(!_appVersion || [_appVersion isEqualToString:@""]){
+        _appVersion = [dicBundle objectForKey:@"CFBundleShortVersionString"];
+    }
+    [self recordStepInfo: [NSString stringWithFormat:@"应用版本: %@", _appVersion]];
+    [self recordStepInfo:[NSString stringWithFormat:@"用户id: %@", _UID]];
     
     //输出机器信息
     UIDevice* device = [UIDevice currentDevice];
-    [self recordStepInfo:[NSString stringWithFormat:@"机器类型:\t%@", [device systemName]]];
-    [self recordStepInfo:[NSString stringWithFormat:@"系统版本:\t%@", [device systemVersion]]];
+    [self recordStepInfo:[NSString stringWithFormat:@"机器类型: %@", [device systemName]]];
+    [self recordStepInfo:[NSString stringWithFormat:@"系统版本: %@", [device systemVersion]]];
     if( !_deviceID || [_deviceID isEqualToString:@""]){
         _deviceID = [self uniqueAppInstanceIdentifier];
     }
-    [self recordStepInfo:[NSString stringWithFormat:@"机器ID:\t%@", _deviceID]];
+    [self recordStepInfo:[NSString stringWithFormat:@"机器ID: %@", _deviceID]];
 
     
     
     //运营商信息
-    CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc]init];
-    CTCarrier *carrier = [netInfo subscriberCellularProvider];
-    if (carrier!=NULL) {
-        [self recordStepInfo:[NSString stringWithFormat:@"运营商:\t%@", [carrier carrierName]]];
-        [self recordStepInfo:[NSString stringWithFormat:@"ISOCountryCode:\t%@", [carrier mobileCountryCode]]];
-        [self recordStepInfo:[NSString stringWithFormat:@"MobileCountryCode:\t%@", [carrier mobileCountryCode]]];
-        [self recordStepInfo:[NSString stringWithFormat:@"MobileNetworkCode:\t%@", [carrier mobileNetworkCode]]];
+    if(!_carrierName || [_carrierName isEqualToString:@""]){
+        CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc]init];
+        CTCarrier *carrier = [netInfo subscriberCellularProvider];
+        if (carrier!=NULL) {
+            _carrierName = [carrier carrierName];
+            _ISOCountryCode = [carrier isoCountryCode];
+            _MobileCountryCode = [carrier mobileCountryCode];
+            _MobileNetCode = [carrier mobileNetworkCode];
+        }else {
+            _carrierName = @"";
+            _ISOCountryCode = @"";
+            _MobileCountryCode = @"";
+            _MobileNetCode = @"";
+        }
     }
+    
+    [self recordStepInfo:[NSString stringWithFormat:@"运营商: %@", _carrierName]];
+    [self recordStepInfo:[NSString stringWithFormat:@"ISOCountryCode: %@", _ISOCountryCode]];
+    [self recordStepInfo:[NSString stringWithFormat:@"MobileCountryCode: %@", _MobileCountryCode]];
+    [self recordStepInfo:[NSString stringWithFormat:@"MobileNetworkCode: %@", _MobileNetCode]];
 }
 
 
@@ -156,6 +194,7 @@
 
 -(void) traceRouteDidEnd {
     _isRunning = NO;
+    [self recordStepInfo:@"\n网络诊断结束\n"];
     if(self.delegate && [self.delegate respondsToSelector:@selector(netDiagnosisDidEnd:)]){
         [self.delegate netDiagnosisDidEnd:_logInfo];
     }
@@ -167,6 +206,7 @@
  * 如果调用者实现了stepInfo接口，输出信息
  */
 -(void) recordStepInfo:(NSString *)stepInfo{
+    if(stepInfo == nil) stepInfo = @"";
     [_logInfo appendString:stepInfo];
     [_logInfo appendString:@"\n"];
 
