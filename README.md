@@ -14,6 +14,8 @@
 
 >如下图所示：
 
+![](LDNetDiagnoServiceDemoTests/netdiagnosis_ios.jpg)
+
 
 
 ## 如何集成LDNetDiagnoService_IOS
