@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		623DA6B61A0723C4002351F7 /* LDNetDiagnoService.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */; };
 		629AF6E71A0125E5001CBB3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E61A0125E5001CBB3E /* main.m */; };
 		629AF6EA1A0125E5001CBB3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E91A0125E5001CBB3E /* AppDelegate.m */; };
 		629AF6ED1A0125E5001CBB3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6EC1A0125E5001CBB3E /* ViewController.m */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LDNetDiagnoService.podspec; sourceTree = "<group>"; };
 		629AF6E11A0125E5001CBB3E /* LDNetDiagnoServiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LDNetDiagnoServiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		629AF6E51A0125E5001CBB3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		629AF6E61A0125E5001CBB3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		629AF6D81A0125E5001CBB3E = {
 			isa = PBXGroup;
 			children = (
+				623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */,
 				629AF71A1A012644001CBB3E /* CoreTelephony.framework */,
 				629AF70A1A012630001CBB3E /* LDNetDiagnoService */,
 				629AF6E31A0125E5001CBB3E /* LDNetDiagnoServiceDemo */,
@@ -237,6 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				623DA6B61A0723C4002351F7 /* LDNetDiagnoService.podspec in Resources */,
 				629AF6F01A0125E5001CBB3E /* Main.storyboard in Resources */,
 				629AF6F51A0125E5001CBB3E /* LaunchScreen.xib in Resources */,
 				629AF6F21A0125E5001CBB3E /* Images.xcassets in Resources */,
