@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-static const int TRACEROUTE_PORT     = 80;
-static const int TRACEROUTE_MAX_TTL  = 20;
+static const int TRACEROUTE_PORT     = 30001;
+static const int TRACEROUTE_MAX_TTL  = 30;
 static const int TRACEROUTE_ATTEMPTS = 3;
 static const int TRACEROUTE_TIMEOUT  = 5000000;
 

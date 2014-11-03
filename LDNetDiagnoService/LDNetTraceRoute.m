@@ -56,8 +56,8 @@
         return false;
     }
     
-    //创建一个支持默认http协议的UDP套接口（用于发送）
-    if((send_sock = socket(AF_INET , SOCK_DGRAM,0))<0){
+    //创建一个UDP套接口（用于发送）
+    if((send_sock = socket(AF_INET, SOCK_DGRAM,0))<0){
         if(_delegate != nil) {
             [_delegate appendRouteLog:@"TraceRoute>>> Could not create xmit socket"];
         }
@@ -70,18 +70,12 @@
     destination.sin_addr.s_addr = inet_addr(ip_addr);
     destination.sin_port = htons(udpPort);
     
-    //给reciever设置timeout
-    struct timeval tv;
-    tv.tv_sec = 0;
-    tv.tv_usec = readTimeout;
-    setsockopt(recv_sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&tv,sizeof(struct timeval));
-    
     char *cmsg = "GET / HTTP/1.1\r\n\r\n";
     socklen_t n= sizeof(fromAddr);
     char buf[100];
     
-    
     int ttl = 1;// index sur le TTL en cours de traitement.
+    int timeoutTTL = 0;
     bool icmp = false;  // Positionné à true lorsqu'on reçoit la trame ICMP en retour.
     long startTime;     // Timestamp lors de l'émission du GET HTTP
     long delta;          // Durée de l'aller-retour jusqu'au hop.
@@ -102,7 +96,6 @@
         icmp = false;
         NSMutableString *traceTTLLog = [[NSMutableString alloc] initWithCapacity:20];
         [traceTTLLog appendFormat:@"%d\t", ttl];
-        long ttlStart = [LDNetTimer getMicroSeconds];
         for(int try = 0;try < maxAttempts;try++) {
             delta = -1;
             startTime = [LDNetTimer getMicroSeconds];
@@ -114,23 +107,41 @@
             
             long res = 0;
             //从（已连接）套接口上接收数据，并捕获数据发送源的地址。
-            memset(buf, 0, 100);
-            if( (res = recvfrom(recv_sock, buf, 100, 0, (struct sockaddr *)&fromAddr,&n))<0) {
-                error = true;
-                [traceTTLLog appendFormat:@"%s\t",  strerror(errno)];
-            } else {
-                icmp = true;
-                delta = [LDNetTimer computeDurationSince:startTime];
-
-                //将“二进制整数” －> “点分十进制，获取hostAddress和hostName
-                char display[16]={0};
-                inet_ntop(AF_INET, &fromAddr.sin_addr.s_addr, display, sizeof (display));
-                NSString *hostAddress = [NSString stringWithFormat:@"%s",display];
-                if(try == 0){
-                    [traceTTLLog appendFormat:@"%@\t", hostAddress];
-                }
-                [traceTTLLog appendFormat:@"%0.2fms\t", (float)delta/1000];
+            if (-1 == fcntl(recv_sock, F_SETFL, O_NONBLOCK)){
+                printf("fcntl socket error!\n");
+                return -1;
             }
+            /* set recvfrom from server timeout */
+            struct timeval tv;
+            fd_set readfds;
+            tv.tv_sec = 1;
+            tv.tv_usec = 0; //设置了1s的延迟
+            FD_ZERO(&readfds);
+            FD_SET(recv_sock, &readfds);
+            select(recv_sock+1,&readfds,NULL, NULL, &tv);
+            if (FD_ISSET(recv_sock,&readfds) > 0){
+                timeoutTTL = 0;
+                if((res = recvfrom(recv_sock, buf, 100, 0, (struct sockaddr *)&fromAddr,&n))<0) {
+                    error = true;
+                    [traceTTLLog appendFormat:@"%s\t",  strerror(errno)];
+                } else {
+                    icmp = true;
+                    delta = [LDNetTimer computeDurationSince:startTime];
+                    
+                    //将“二进制整数” －> “点分十进制，获取hostAddress和hostName
+                    char display[16]={0};
+                    inet_ntop(AF_INET, &fromAddr.sin_addr.s_addr, display, sizeof (display));
+                    NSString *hostAddress = [NSString stringWithFormat:@"%s",display];
+                    if(try == 0){
+                        [traceTTLLog appendFormat:@"%@\t\t", hostAddress];
+                    }
+                    [traceTTLLog appendFormat:@"%0.2fms\t", (float)delta/1000];
+                }
+            }else {
+                timeoutTTL++;
+                break;
+            }
+            
             // On teste si l'utilisateur a demandé l'arrêt du traceroute
             @synchronized(running) {
                 if(!isrunning) {
@@ -146,9 +157,12 @@
         if(icmp) {
             [self.delegate appendRouteLog:traceTTLLog];
         } else {
-            float lastTTLDuration = (float)[LDNetTimer computeDurationSince:ttlStart]/1000;
-            [self.delegate appendRouteLog:[NSString stringWithFormat:@"%d\t%s\t%0.2fms", ttl, ip_addr, lastTTLDuration]];
-            break;
+            //如果连续三次接收不到icmp回显报文
+            if(timeoutTTL >= 4){
+                break;
+            } else {
+                [self.delegate appendRouteLog:[NSString stringWithFormat:@"%d\t********\t", ttl]];
+            }
         }
         ttl++;
     }
