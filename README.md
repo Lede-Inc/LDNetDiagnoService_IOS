@@ -43,72 +43,73 @@
 ## 如何使用LDNetDiagnoService_IOS
 ---------------------------------
 
->
- 在IOS项目中，当展示WAP页面的时候会用到UIWebView组件，我们通过在UIWebView组件所在的Controller中注册JSAPIServie服务，拦截Webview的URL进行处理。
- 
- * 在Webview所在的Controller中初始化一个JSAPIService，并注册该WebView需要使用的插件
- 
-		-(void) viewDidLoad {
-    		[super viewDidLoad];
-    
-    		....
-    
-	    	//创建webview
-	    	[self createGapView];
-        
-		    //注册插件Service
-    		if(_jsService == nil){
-        		_jsService = [[LDJSService alloc] initWithWebView:_webview];
+> 通过pod或者代码拷贝service代码到工程之后，即可通过如下方式调用网络诊断服务：
+
+1. 初始化service，并为service设置监控日志输出的delegate；
+tip：初始化参数只需要初始化appcode，userID, dormain（必须）, 其他参数如果不设置，service会自动补上这些日志参数；
+		
+    	_netDiagnoService = [[LDNetDiagnoService alloc] initWithAppCode:@"test" appName:@"网络诊断应用" appVersion:@"1.0.0" userID:@"huipang@corp.netease.com" deviceID:nil dormain:@"caipiao.163.com" carrierName:nil ISOCountryCode:nil MobileCountryCode:nil MobileNetCode:nil];
+    	_netDiagnoService.delegate = self;
+	
+
+2. service中提供开启或停止网络诊断的功能；
+
+		-(void) startNetDiagnosis {
+    		if(!_isRunning){
+        		[_indicatorView startAnimating];
+        		[btn setTitle:@"停止诊断" forState:UIControlStateNormal];
+        		_txtView_log.text = @"";
+        		_logInfo = @"";
+        		//开启网络诊断
+        		[_netDiagnoService startNetDiagnosis];
+    		} else {
+        		[_indicatorView stopAnimating];
+        		[btn setTitle:@"开始诊断" forState:UIControlStateNormal];
+        		//停止网络诊断
+        		[_netDiagnoService stopNetDialogsis];
     		}
-    
-
-    		//批量测试
-			//NSDictionary *pluginsDic = [NSDictionary dictionaryWithObjects:ARR_PLUGINS_CLASS forKeys:ARR_PLUGINS_KEY];
-			//[_jsService registerPlugins:pluginsDic];
-			//[_jsService unRegisterAllPlugins];
-    
-		    //单个注册测试, 
-		    //device是js调用namespace名称， 
-			//LDPDevice 是Natvie插件的Class名称
-    		[_jsService registerPlugin:@"device" withPluginClass:@"LDPDevice"];
-		    [_jsService registerPlugin:@"app" withPluginClass:@"LDPAppInfo"];
-    		[_jsService registerPlugin:@"nav" withPluginClass:@"LDPUINavCtrl"];
-		    [_jsService registerPlugin:@"ui" withPluginClass:@"LDPUIGlobalCtrl"];
-		  	
-		  	 ....
-		    
-		  }
-
- 
- 
- * 通过WebviewDelegate拦截url请求，处理JSAPI中发送的jsbridge://请求
- 
-
-		- (BOOL)webView:(UIWebView*)theWebView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
-		{
-			//拦截JSBridge命令
-			if([[url scheme] isEqualToString:@"jsbridge"]){
-        		[_jsService handleURLFromWebview:[url absoluteString]];
-        		return NO;
-    		}
-    		
-    		....
-
+    		_isRunning = !_isRunning;
 		}
 
+3. 重载delegate方法，监控网络诊断日志；
 
+	* 监控诊断开始
+	
+			#pragma mark NetDiagnosisDelegate
+			-(void)netDiagnosisDidStarted {
+    			NSLog(@"开始诊断～～～");
+			}
 
-## 定义NavigationController导航的Wap功能模块
--------------------------------------------
+	* 监控网络诊断过程中的日志输出
+	
+			-(void)netDiagnosisStepInfo:(NSString *)stepInfo {
+    			NSLog(@"%@", stepInfo);
+    			_logInfo = [_logInfo stringByAppendingString:stepInfo];
+    			dispatch_async(dispatch_get_main_queue(), ^{
+        			_txtView_log.text = _logInfo;
+    			});
+			}
+
+	* 诊断结束，输出全部日志记录
+
+			-(void)netDiagnosisDidEnd:(NSString *)allLogInfo;{
+			    //可以保存到文件，也可以通过邮件发送回来
+    			dispatch_async(dispatch_get_main_queue(), ^{
+        			[_indicatorView stopAnimating];
+        			[btn setTitle:@"开始诊断" forState:UIControlStateNormal];
+			        _isRunning = NO;
+    			});
+			}
+ 
+
+## 如何通过textview监控日志输出
+---------------------------------
+>
+* 如果产品需要通过textview缄口日志输出过程，可以参考demo例子中的ViewController的代码；
 
 >
-在手机qq里可以看到很多独立的基于WAP页面的功能模块，其实基于JSBridge的JSAPI最大的用处是以这种方式呈现。
+* 在网络诊断结束的时候，将日志文件上传；
 
-* 目前在demo工程中已经初步完成了Device、App、UI导航部分的示例（参看[LDPBaseWebViewCrtl.m 文件](CommonJSAPI/LDPBaseWebViewCrtl.m)），客户端可以在此基础上根据项目需求进行完善开发：
-
-
->
-		
 
 ## 技术支持
 -------------------
