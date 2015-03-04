@@ -163,8 +163,8 @@
     assert(pinger == self.pinger);
 #pragma unused(packet)
     
-    NSString *successLog = [NSString stringWithFormat:@"%d bytes from %@ icmp_seq=#%u ttl=%d time=%ldms",
-          [packet length],
+    NSString *successLog = [NSString stringWithFormat:@"%lu bytes from %@ icmp_seq=#%u ttl=%d time=%ldms",
+          (unsigned long)[packet length],
           _hostAddress,
           (unsigned int) OSSwapBigToHostInt16([LDSimplePing icmpInPacket:packet]->sequenceNumber),
           (unsigned int) ([LDSimplePing ipHeaderInPacket:packet]->timeToLive),
