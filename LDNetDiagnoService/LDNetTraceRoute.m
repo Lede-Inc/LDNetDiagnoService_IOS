@@ -37,6 +37,13 @@
 - (Boolean)doTraceRoute:(NSString *)host{
     //从name server获取server主机的地址
     struct hostent *host_entry = gethostbyname(host.UTF8String);
+    if(host_entry == NULL){
+        if(_delegate != nil){
+            [_delegate appendRouteLog:@"TraceRoute>>> Could not get host address"];
+            [_delegate traceRouteDidEnd];
+        }
+        return false;
+    }
     char *ip_addr;
     ip_addr = inet_ntoa(*((struct in_addr *)host_entry->h_addr_list[0]));
     
@@ -52,6 +59,7 @@
     if ((recv_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_ICMP)) < 0) {
         if(_delegate != nil) {
             [_delegate appendRouteLog:@"TraceRoute>>> Could not create recv socket"];
+            [_delegate traceRouteDidEnd];
         }
         return false;
     }
@@ -60,6 +68,7 @@
     if((send_sock = socket(AF_INET, SOCK_DGRAM,0))<0){
         if(_delegate != nil) {
             [_delegate appendRouteLog:@"TraceRoute>>> Could not create xmit socket"];
+            [_delegate traceRouteDidEnd];
         }
         return false;
     }

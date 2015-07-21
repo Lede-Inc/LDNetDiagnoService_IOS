@@ -9,10 +9,11 @@
 #import "ViewController.h"
 #import "LDNetDiagnoService.h"
 
-@interface ViewController () <LDNetDiagnoServiceDelegate> {
+@interface ViewController () <LDNetDiagnoServiceDelegate, UITextFieldDelegate> {
     UIActivityIndicatorView *_indicatorView;
     UIButton *btn;
     UITextView *_txtView_log;
+    UITextField *_txtfield_dormain;
     
     NSString *_logInfo;
     LDNetDiagnoService *_netDiagnoService;
@@ -48,6 +49,13 @@
     [btn setTitle:@"开始诊断" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(startNetDiagnosis) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+    
+    
+    _txtfield_dormain = [[UITextField alloc] initWithFrame:CGRectMake(130.0f, 79.0f, 180.0f, 50.0f)];
+    _txtfield_dormain.delegate = self;
+    _txtfield_dormain.returnKeyType = UIReturnKeyDone;
+    _txtfield_dormain.text = @"caipiao.163.com";
+    [self.view addSubview:_txtfield_dormain];
 
     
     _txtView_log = [[UITextView alloc] initWithFrame:CGRectZero];
@@ -63,7 +71,7 @@
     
     // Do any additional setup after loading the view, typically from a nib.
     _netDiagnoService = [[LDNetDiagnoService alloc]
-                         initWithAppCode:@"test" appName:@"网络诊断应用" appVersion:@"1.0.0" userID:@"huipang@corp.netease.com" deviceID:nil dormain:@"caipiao.163.com" carrierName:nil ISOCountryCode:nil MobileCountryCode:nil MobileNetCode:nil];
+                         initWithAppCode:@"test" appName:@"网络诊断应用" appVersion:@"1.0.0" userID:@"huipang@corp.netease.com" deviceID:nil dormain:_txtfield_dormain.text carrierName:nil ISOCountryCode:nil MobileCountryCode:nil MobileNetCode:nil];
     _netDiagnoService.delegate = self;
     _isRunning = NO;
 
@@ -71,6 +79,8 @@
 
 
 -(void) startNetDiagnosis {
+    [_txtfield_dormain resignFirstResponder];
+    _netDiagnoService.dormain = _txtfield_dormain.text;
     if(!_isRunning){
         [_indicatorView startAnimating];
         [btn setTitle:@"停止诊断" forState:UIControlStateNormal];
@@ -120,5 +130,15 @@
 -(void) emailLogInfo {
     [_netDiagnoService printLogInfo];
 }
+
+
+#pragma mark -
+#pragma mark - textFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 
 @end

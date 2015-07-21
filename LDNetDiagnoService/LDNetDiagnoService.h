@@ -42,7 +42,7 @@
 @interface LDNetDiagnoService : NSObject {
 }
 @property (nonatomic, weak, readwrite)id<LDNetDiagnoServiceDelegate> delegate; //向调用者输出诊断信息接口
-
+@property (nonatomic, retain) NSString *dormain; //接口域名
 
 /**
  * 初始化网络诊断服务

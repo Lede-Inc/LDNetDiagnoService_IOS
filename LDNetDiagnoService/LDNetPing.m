@@ -40,6 +40,7 @@
 -(void) stopPing {
     [self->_pinger stop];
     self.pinger =  nil;
+    _sendCount = MAXCOUNT_PING + 1;
 }
 
 

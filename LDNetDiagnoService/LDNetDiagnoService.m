@@ -18,7 +18,6 @@
     NSString *_appVersion;
     NSString *_UID; //用户ID
     NSString *_deviceID; //客户端机器ID，如果不传入会默认取API提供的机器ID
-    NSString *_dormain; //接口域名
     NSString *_carrierName;
     NSString *_ISOCountryCode;
     NSString *_MobileCountryCode;
