@@ -18,6 +18,7 @@
     int _sendCount;  //当前执行次数
     long _startTime; //每次执行的开始时间
     NSString *_hostAddress; //目标域名的IP地址
+    NSTimer *timer;
 }
 
 @property (nonatomic, strong, readwrite) LDSimplePing *pinger;
@@ -69,6 +70,9 @@
  *
  */
 - (void)sendPing{
+    if (timer) {
+        [timer invalidate];
+    }
     if(_sendCount > MAXCOUNT_PING){
         _sendCount++;
         self.pinger = nil;
@@ -82,13 +86,13 @@
         _sendCount++;
         _startTime = [LDNetTimer getMicroSeconds];
         [self.pinger sendPingWithData:nil];
-        [self performSelector:@selector(pingTimeout:) withObject:[NSNumber numberWithInt:_sendCount] afterDelay:3];
+        timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(pingTimeout:) userInfo:[NSNumber numberWithInt:_sendCount] repeats:NO];
     }
 }
 
--(void)pingTimeout:(NSNumber *)index
+-(void)pingTimeout:(NSTimer *)index
 {
-    if ([index intValue]==_sendCount && _sendCount<=MAXCOUNT_PING+1 && _sendCount>1) {
+    if ([[index userInfo] intValue]==_sendCount && _sendCount<=MAXCOUNT_PING+1 && _sendCount>1) {
         NSString *timeoutLog = [NSString stringWithFormat:@"ping: cannot resolve %@: TimeOut", _hostAddress];
         if(self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]){
             [self.delegate appendPingLog:timeoutLog];
