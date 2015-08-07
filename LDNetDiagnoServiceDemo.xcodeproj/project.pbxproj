@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		507D0B1A1B71F08300C022DD /* LDNetGetAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 507D0B191B71F08300C022DD /* LDNetGetAddress.m */; };
+		507D0B1D1B71FE1900C022DD /* LDNetConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 507D0B1C1B71FE1900C022DD /* LDNetConnect.m */; };
+		50C40A001B736B6D00C0D877 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C409FF1B736B6D00C0D877 /* libresolv.dylib */; };
 		623DA6B61A0723C4002351F7 /* LDNetDiagnoService.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */; };
 		629AF6E71A0125E5001CBB3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E61A0125E5001CBB3E /* main.m */; };
 		629AF6EA1A0125E5001CBB3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E91A0125E5001CBB3E /* AppDelegate.m */; };
@@ -34,6 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		507D0B181B71F08300C022DD /* LDNetGetAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetGetAddress.h; sourceTree = "<group>"; };
+		507D0B191B71F08300C022DD /* LDNetGetAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetGetAddress.m; sourceTree = "<group>"; };
+		507D0B1B1B71FE1900C022DD /* LDNetConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetConnect.h; sourceTree = "<group>"; };
+		507D0B1C1B71FE1900C022DD /* LDNetConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetConnect.m; sourceTree = "<group>"; };
+		50C409FF1B736B6D00C0D877 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		50C40A011B73948900C0D877 /* Route.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
 		623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LDNetDiagnoService.podspec; sourceTree = "<group>"; };
 		629AF6E11A0125E5001CBB3E /* LDNetDiagnoServiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LDNetDiagnoServiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		629AF6E51A0125E5001CBB3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50C40A001B736B6D00C0D877 /* libresolv.dylib in Frameworks */,
 				629AF71B1A012644001CBB3E /* CoreTelephony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,6 +93,7 @@
 		629AF6D81A0125E5001CBB3E = {
 			isa = PBXGroup;
 			children = (
+				50C409FF1B736B6D00C0D877 /* libresolv.dylib */,
 				623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */,
 				629AF71A1A012644001CBB3E /* CoreTelephony.framework */,
 				629AF70A1A012630001CBB3E /* LDNetDiagnoService */,
@@ -153,8 +164,13 @@
 				629AF7101A012630001CBB3E /* LDNetTimer.m */,
 				629AF7111A012630001CBB3E /* LDNetTraceRoute.h */,
 				629AF7121A012630001CBB3E /* LDNetTraceRoute.m */,
+				507D0B1B1B71FE1900C022DD /* LDNetConnect.h */,
+				507D0B1C1B71FE1900C022DD /* LDNetConnect.m */,
 				629AF7131A012630001CBB3E /* LDSimplePing.h */,
 				629AF7141A012630001CBB3E /* LDSimplePing.m */,
+				507D0B181B71F08300C022DD /* LDNetGetAddress.h */,
+				507D0B191B71F08300C022DD /* LDNetGetAddress.m */,
+				50C40A011B73948900C0D877 /* Route.h */,
 			);
 			path = LDNetDiagnoService;
 			sourceTree = "<group>";
@@ -208,10 +224,11 @@
 				TargetAttributes = {
 					629AF6E01A0125E5001CBB3E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 65CYDTWQA5;
+						DevelopmentTeam = 35B2KE884X;
 					};
 					629AF6F91A0125E5001CBB3E = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 35B2KE884X;
 						TestTargetID = 629AF6E01A0125E5001CBB3E;
 					};
 				};
@@ -261,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507D0B1A1B71F08300C022DD /* LDNetGetAddress.m in Sources */,
 				629AF6ED1A0125E5001CBB3E /* ViewController.m in Sources */,
 				629AF7191A012630001CBB3E /* LDSimplePing.m in Sources */,
 				629AF7151A012630001CBB3E /* LDNetDiagnoService.m in Sources */,
@@ -268,6 +286,7 @@
 				629AF7161A012630001CBB3E /* LDNetPing.m in Sources */,
 				629AF6E71A0125E5001CBB3E /* main.m in Sources */,
 				629AF7171A012630001CBB3E /* LDNetTimer.m in Sources */,
+				507D0B1D1B71FE1900C022DD /* LDNetConnect.m in Sources */,
 				629AF7181A012630001CBB3E /* LDNetTraceRoute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,6 +346,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -369,6 +389,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -392,7 +413,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -406,7 +427,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -420,6 +441,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -431,6 +454,7 @@
 				INFOPLIST_FILE = LDNetDiagnoServiceDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LDNetDiagnoServiceDemo.app/LDNetDiagnoServiceDemo";
 			};
 			name = Debug;
@@ -439,6 +463,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -446,6 +472,7 @@
 				INFOPLIST_FILE = LDNetDiagnoServiceDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LDNetDiagnoServiceDemo.app/LDNetDiagnoServiceDemo";
 			};
 			name = Release;
