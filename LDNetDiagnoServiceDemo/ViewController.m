@@ -86,14 +86,16 @@
         [btn setTitle:@"停止诊断" forState:UIControlStateNormal];
         _txtView_log.text = @"";
         _logInfo = @"";
+        _isRunning = !_isRunning;
         [_netDiagnoService startNetDiagnosis];
     } else {
         [_indicatorView stopAnimating];
+        _isRunning = !_isRunning;
         [btn setTitle:@"开始诊断" forState:UIControlStateNormal];
         [_netDiagnoService stopNetDialogsis];
     }
     
-    _isRunning = !_isRunning;
+    
 }
 
 - (void)didReceiveMemoryWarning {
