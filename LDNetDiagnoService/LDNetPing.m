@@ -88,8 +88,8 @@
 
 -(void)pingTimeout:(NSNumber *)index
 {
-    if ([index intValue]==_sendCount && _sendCount<=MAXCOUNT_PING+1) {
-        NSString *timeoutLog = [NSString stringWithFormat:@"%@ time out", _hostAddress];
+    if ([index intValue]==_sendCount && _sendCount<=MAXCOUNT_PING+1 && _sendCount>1) {
+        NSString *timeoutLog = [NSString stringWithFormat:@"ping: cannot resolve %@: TimeOut", _hostAddress];
         if(self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]){
             [self.delegate appendPingLog:timeoutLog];
         }

@@ -69,7 +69,7 @@
 -(void)Connect
 {
     //创建套接字
-    CFSocketContext CTX = {0,(__bridge void *)(self),NULL,NULL,NULL};
+    CFSocketContext CTX = {0,(__bridge_retained void *)(self),NULL,NULL,NULL};
     _socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, kCFSocketConnectCallBack, TCPServerConnectCallBack, &CTX);
     
     //设置地址
@@ -87,6 +87,7 @@
     
     //执行连接
     CFSocketConnectToAddress(_socket,address,3);
+    CFRelease(address);
     CFRunLoopRef cfrl = CFRunLoopGetCurrent();   // 获取当前运行循环
     CFRunLoopSourceRef  source = CFSocketCreateRunLoopSource(kCFAllocatorDefault,_socket,_connectCount);//定义循环对象
     CFRunLoopAddSource(cfrl,source,kCFRunLoopDefaultMode); //将循环对象加入当前循环中
@@ -101,14 +102,15 @@ static void TCPServerConnectCallBack(CFSocketRef socket, CFSocketCallBackType ty
     if(data != NULL)
     {
         printf("connect");
-        LDNetConnect *con = (__bridge LDNetConnect *)info;
+        LDNetConnect *con = (__bridge_transfer LDNetConnect *)info;
         [con ReadStream:FALSE];
     }
     else
     {
-        LDNetConnect *con = (__bridge LDNetConnect *)info;
         
+        LDNetConnect *con = (__bridge_transfer LDNetConnect *)info;
         [con ReadStream:TRUE];
+        
     }
 }
 
@@ -126,13 +128,13 @@ static void TCPServerConnectCallBack(CFSocketRef socket, CFSocketCallBackType ty
         _resultLog = [_resultLog stringByAppendingString:[NSString stringWithFormat:@"%d's time=%ldms, ", _connectCount+1, interval]];
     } else {
         _sumTime = 99999;
-        _resultLog = [_resultLog stringByAppendingString:[NSString stringWithFormat:@"%d's time=time out, ", _connectCount+1]];
+        _resultLog = [_resultLog stringByAppendingString:[NSString stringWithFormat:@"%d's time=TimeOut, ", _connectCount+1]];
     }
     if (_connectCount==MAXCOUNT_CONNECT-1) {
         if (_sumTime>=99999) {
             _resultLog = [_resultLog substringToIndex:[_resultLog length]-1];
         } else {
-            _resultLog = [_resultLog stringByAppendingString:[NSString stringWithFormat:@"average time=%ldms", _sumTime/4]];
+            _resultLog = [_resultLog stringByAppendingString:[NSString stringWithFormat:@"average=%ldms", _sumTime/4]];
         }
         if(self.delegate && [self.delegate respondsToSelector:@selector(appendSocketLog:)]){
             [self.delegate appendSocketLog:_resultLog];
