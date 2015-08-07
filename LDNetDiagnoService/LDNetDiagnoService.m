@@ -11,8 +11,10 @@
 #import "LDNetDiagnoService.h"
 #import "LDNetPing.h"
 #import "LDNetTraceRoute.h"
+#import "LDNetGetAddress.h"
+#import "LDNetConnect.h"
 
-@interface LDNetDiagnoService ()<LDNetPingDelegate, LDNetTraceRouteDelegate> {
+@interface LDNetDiagnoService ()<LDNetPingDelegate, LDNetTraceRouteDelegate, LDNetConnectDelegate> {
     NSString *_appCode; //客户端标记
     NSString *_appName;
     NSString *_appVersion;
@@ -23,10 +25,17 @@
     NSString *_MobileCountryCode;
     NSString *_MobileNetCode;
     
+    NSString *_localIp;
+    NSString *_gatewayIp;
+    NSArray *_dnsServers;
+    NSArray *_hostAddress;
+    
     NSMutableString *_logInfo; //记录网络诊断log日志
     BOOL _isRunning;
+    BOOL _connectSuccess; //记录连接是否成功
     LDNetPing *_netPinger;
     LDNetTraceRoute *_traceRouter;
+    LDNetConnect *_netConnect;
 }
 
 @end
@@ -115,6 +124,45 @@
     [self recordStepInfo:[NSString stringWithFormat:@"ISOCountryCode: %@", _ISOCountryCode]];
     [self recordStepInfo:[NSString stringWithFormat:@"MobileCountryCode: %@", _MobileCountryCode]];
     [self recordStepInfo:[NSString stringWithFormat:@"MobileNetworkCode: %@", _MobileNetCode]];
+    
+    
+    [self recordStepInfo:[NSString stringWithFormat:@"\n\n诊断域名 %@...\n", _dormain]];
+    
+    NSArray *typeArr = [NSArray arrayWithObjects:@"2G", @"3G", @"4G", @"5G", @"wifi", nil];
+    NETWORK_TYPE type = [LDNetGetAddress getNetworkTypeFromStatusBar];
+    if (type==0) {
+        [self recordStepInfo:[NSString stringWithFormat:@"当前是否联网: 未联网"]];
+    } else {
+        [self recordStepInfo:[NSString stringWithFormat:@"当前是否联网: 已联网"]];
+        if (type>0 && type<6) {
+            [self recordStepInfo:[NSString stringWithFormat:@"当前联网类型: %@", [typeArr objectAtIndex:type-1]]];
+        }
+    }
+    
+    //本地ip信息
+    _localIp = [LDNetGetAddress deviceIPAdress];
+    [self recordStepInfo:[NSString stringWithFormat:@"当前本机IP: %@", _localIp]];
+    
+    if (type==NETWORK_TYPE_WIFI) {
+        _gatewayIp = [LDNetGetAddress getGatewayIPAddress];
+        [self recordStepInfo:[NSString stringWithFormat:@"本地网关: %@", _gatewayIp]];
+    } else {
+        _gatewayIp = @"";
+    }
+    
+    
+    _dnsServers = [NSArray arrayWithArray:[LDNetGetAddress outPutDNSServers]];
+    [self recordStepInfo:[NSString stringWithFormat:@"本地DNS: %@", [_dnsServers componentsJoinedByString:@", "]]];
+    
+    [self recordStepInfo:[NSString stringWithFormat:@"远端域名: %@", _dormain]];
+    
+    //host地址IP列表
+    _hostAddress = [NSArray arrayWithArray:[LDNetGetAddress getIPWithHostName:_dormain]];
+    if ([_hostAddress count]==0) {
+        [self recordStepInfo:[NSString stringWithFormat:@"DNS解析结果: 解析失败"]];
+    } else {
+        [self recordStepInfo:[NSString stringWithFormat:@"DNS解析结果: %@", [_hostAddress componentsJoinedByString:@", "]]];
+    }
 }
 
 
@@ -129,22 +177,76 @@
     [self recordStepInfo:@"开始诊断..."];
     [self recordCurrentAppVersion];
     
+    if (_isRunning) {
+        _connectSuccess = FALSE;
+        //connect诊断，同步过程
+        [self recordStepInfo:@"\n开始TCP连接测试..."];
+        if ([_hostAddress count]>0) {
+            _netConnect = [[LDNetConnect alloc] init];
+            _netConnect.delegate = self;
+            for (int i=0; i<[_hostAddress count]; i++) {
+                [_netConnect runWithHostAddress:[_hostAddress objectAtIndex:i] port:80];
+            }
+        } else {
+            [self recordStepInfo:@"DNS解析失败，主机地址不可达"];
+        }
+        
+        if (_isRunning) {
+            [self pingDialogsis:!_connectSuccess];
+        }
+    }
+    
+    
+    
+    if (_isRunning) {
+        //开始诊断traceRoute
+        [self recordStepInfo:@"\n开始traceroute..."];
+        _traceRouter = [[LDNetTraceRoute alloc] initWithMaxTTL:TRACEROUTE_MAX_TTL timeout:TRACEROUTE_TIMEOUT maxAttempts:TRACEROUTE_ATTEMPTS port:TRACEROUTE_PORT];
+        _traceRouter.delegate = self;
+        if(_traceRouter) {
+            [NSThread detachNewThreadSelector:@selector(doTraceRoute:) toTarget:_traceRouter withObject:_dormain];
+        }
+    }
+}
+
+/**
+ * 构建ping列表并进行ping诊断
+ */
+-(void) pingDialogsis:(BOOL)pingLocal {
     //诊断ping信息, 同步过程
-    [self recordStepInfo:[NSString stringWithFormat:@"\n\n诊断域名 %@...", _dormain]];
+    NSMutableArray *pingAdd = [[NSMutableArray alloc] init];
+    NSMutableArray *pingInfo = [[NSMutableArray alloc] init];
+    if (pingLocal) {
+        [pingAdd addObject:@"127.0.0.1"];
+        [pingInfo addObject:@"本机"];
+        [pingAdd addObject:_localIp];
+        [pingInfo addObject:@"本机IP"];
+        if (_gatewayIp && ![_gatewayIp isEqualToString:@""]) {
+            [pingAdd addObject:_gatewayIp];
+            [pingInfo addObject:@"本地网关"];
+        }
+        if ([_dnsServers count]>0) {
+            [pingAdd addObject:[_dnsServers objectAtIndex:0]];
+            [pingInfo addObject:@"DNS服务器"];
+        }
+        if ([_hostAddress count]>0) {
+            [pingAdd addObject:[_hostAddress objectAtIndex:0]];
+            [pingInfo addObject:@"远端IP"];
+        }
+    } else {
+        [pingAdd addObject:_dormain];
+        [pingInfo addObject:@""];
+    }
+    
     [self recordStepInfo:@"\n开始ping..."];
     _netPinger = [[LDNetPing alloc] init];
     _netPinger.delegate = self;
-    [_netPinger runWithHostName: _dormain];
-    
-    
-    //开始诊断traceRoute
-    [self recordStepInfo:@"\n开始traceroute..."];
-    _traceRouter = [[LDNetTraceRoute alloc] initWithMaxTTL:TRACEROUTE_MAX_TTL timeout:TRACEROUTE_TIMEOUT maxAttempts:TRACEROUTE_ATTEMPTS port:TRACEROUTE_PORT];
-    _traceRouter.delegate = self;
-    if(_traceRouter) {
-        [NSThread detachNewThreadSelector:@selector(doTraceRoute:) toTarget:_traceRouter withObject:_dormain];
+    for (int i=0; i<[pingAdd count]; i++) {
+        [self recordStepInfo:[NSString stringWithFormat:@"ping: %@ %@ ...", [pingInfo objectAtIndex:i], [pingAdd objectAtIndex:i]]];
+        [_netPinger runWithHostName: [pingAdd objectAtIndex:i]];
     }
 }
+
 
 /**
  * 停止诊断网络
@@ -159,6 +261,11 @@
         if(_traceRouter != nil) {
             [_traceRouter stopTrace];
             _traceRouter = nil;
+        }
+        
+        if (_netConnect != nil) {
+            [_netConnect stopConnect];
+            _netConnect = nil;
         }
         
         _isRunning = NO;
@@ -184,6 +291,7 @@
 
 -(void) netPingDidEnd {
     //net
+
 }
 
 #pragma mark - traceRouteDelegate
@@ -196,6 +304,20 @@
     [self recordStepInfo:@"\n网络诊断结束\n"];
     if(self.delegate && [self.delegate respondsToSelector:@selector(netDiagnosisDidEnd:)]){
         [self.delegate netDiagnosisDidEnd:_logInfo];
+    }
+    
+}
+
+#pragma mark - connectDelegate
+-(void)appendSocketLog:(NSString *)socketLog
+{
+    [self recordStepInfo:socketLog];
+}
+
+-(void)connectDidEnd:(BOOL)success
+{
+    if (success) {
+        _connectSuccess = TRUE;
     }
 }
 
