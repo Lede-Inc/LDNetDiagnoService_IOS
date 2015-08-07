@@ -42,7 +42,6 @@
 		507D0B1B1B71FE1900C022DD /* LDNetConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetConnect.h; sourceTree = "<group>"; };
 		507D0B1C1B71FE1900C022DD /* LDNetConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetConnect.m; sourceTree = "<group>"; };
 		50C409FF1B736B6D00C0D877 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
-		50C40A011B73948900C0D877 /* Route.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
 		623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LDNetDiagnoService.podspec; sourceTree = "<group>"; };
 		629AF6E11A0125E5001CBB3E /* LDNetDiagnoServiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LDNetDiagnoServiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		629AF6E51A0125E5001CBB3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -170,7 +169,6 @@
 				629AF7141A012630001CBB3E /* LDSimplePing.m */,
 				507D0B181B71F08300C022DD /* LDNetGetAddress.h */,
 				507D0B191B71F08300C022DD /* LDNetGetAddress.m */,
-				50C40A011B73948900C0D877 /* Route.h */,
 			);
 			path = LDNetDiagnoService;
 			sourceTree = "<group>";
