@@ -84,6 +84,9 @@
     if(!_isRunning){
         [_indicatorView startAnimating];
         [btn setTitle:@"停止诊断" forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
+        [btn setUserInteractionEnabled:FALSE];
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:3.0f];
         _txtView_log.text = @"";
         _logInfo = @"";
         _isRunning = !_isRunning;
@@ -92,10 +95,17 @@
         [_indicatorView stopAnimating];
         _isRunning = !_isRunning;
         [btn setTitle:@"开始诊断" forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
+        [btn setUserInteractionEnabled:FALSE];
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:3.0f];
         [_netDiagnoService stopNetDialogsis];
     }
-    
-    
+}
+
+-(void)delayMethod
+{
+    [btn setBackgroundColor:[UIColor lightGrayColor]];
+    [btn setUserInteractionEnabled:TRUE];
 }
 
 - (void)didReceiveMemoryWarning {

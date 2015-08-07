@@ -12,6 +12,7 @@
 #import "LDNetPing.h"
 #import "LDNetTraceRoute.h"
 #import "LDNetGetAddress.h"
+#import "LDNetTimer.h"
 #import "LDNetConnect.h"
 
 @interface LDNetDiagnoService ()<LDNetPingDelegate, LDNetTraceRouteDelegate, LDNetConnectDelegate> {
@@ -25,6 +26,7 @@
     NSString *_MobileCountryCode;
     NSString *_MobileNetCode;
     
+    NETWORK_TYPE type;
     NSString *_localIp;
     NSString *_gatewayIp;
     NSArray *_dnsServers;
@@ -129,7 +131,7 @@
     [self recordStepInfo:[NSString stringWithFormat:@"\n\n诊断域名 %@...\n", _dormain]];
     
     NSArray *typeArr = [NSArray arrayWithObjects:@"2G", @"3G", @"4G", @"5G", @"wifi", nil];
-    NETWORK_TYPE type = [LDNetGetAddress getNetworkTypeFromStatusBar];
+    type = [LDNetGetAddress getNetworkTypeFromStatusBar];
     if (type==0) {
         [self recordStepInfo:[NSString stringWithFormat:@"当前是否联网: 未联网"]];
     } else {
@@ -157,11 +159,13 @@
     [self recordStepInfo:[NSString stringWithFormat:@"远端域名: %@", _dormain]];
     
     //host地址IP列表
+    long time_start = [LDNetTimer getMicroSeconds];
     _hostAddress = [NSArray arrayWithArray:[LDNetGetAddress getIPWithHostName:_dormain]];
+    long time_duration = [LDNetTimer computeDurationSince:time_start] /1000;
     if ([_hostAddress count]==0) {
         [self recordStepInfo:[NSString stringWithFormat:@"DNS解析结果: 解析失败"]];
     } else {
-        [self recordStepInfo:[NSString stringWithFormat:@"DNS解析结果: %@", [_hostAddress componentsJoinedByString:@", "]]];
+        [self recordStepInfo:[NSString stringWithFormat:@"DNS解析结果: %@ (%ldms)", [_hostAddress componentsJoinedByString:@", "], time_duration]];
     }
 }
 
@@ -177,6 +181,15 @@
     [self recordStepInfo:@"开始诊断..."];
     [self recordCurrentAppVersion];
     
+    if (type == 0) {
+        _isRunning = NO;
+        [self recordStepInfo:@"\n当前主机未联网，请检查网络！"];
+        [self recordStepInfo:@"\n网络诊断结束\n"];
+        if(self.delegate && [self.delegate respondsToSelector:@selector(netDiagnosisDidEnd:)]){
+            [self.delegate netDiagnosisDidEnd:_logInfo];
+        }
+        return;
+    }
     if (_isRunning) {
         _connectSuccess = FALSE;
         //connect诊断，同步过程
@@ -253,6 +266,11 @@
  */
 -(void) stopNetDialogsis {
     if(_isRunning){
+        if (_netConnect != nil) {
+            [_netConnect stopConnect];
+            _netConnect = nil;
+        }
+        
         if(_netPinger != nil){
             [_netPinger  stopPing];
             _netPinger = nil;
@@ -261,11 +279,6 @@
         if(_traceRouter != nil) {
             [_traceRouter stopTrace];
             _traceRouter = nil;
-        }
-        
-        if (_netConnect != nil) {
-            [_netConnect stopConnect];
-            _netConnect = nil;
         }
         
         _isRunning = NO;
