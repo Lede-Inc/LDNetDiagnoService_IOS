@@ -11,7 +11,7 @@
 #import "LDNetPing.h"
 #import "LDNetTimer.h"
 
-#define MAXCOUNT_PING 5
+#define MAXCOUNT_PING 4
 
 @interface LDNetPing () {
     BOOL _isStartSuccess; //监测第一次ping是否成功
@@ -70,6 +70,7 @@
  */
 - (void)sendPing{
     if(_sendCount > MAXCOUNT_PING){
+        _sendCount++;
         self.pinger = nil;
         if(self.delegate && [self.delegate respondsToSelector:@selector(netPingDidEnd)]){
             [self.delegate netPingDidEnd];
@@ -81,6 +82,18 @@
         _sendCount++;
         _startTime = [LDNetTimer getMicroSeconds];
         [self.pinger sendPingWithData:nil];
+        [self performSelector:@selector(pingTimeout:) withObject:[NSNumber numberWithInt:_sendCount] afterDelay:3];
+    }
+}
+
+-(void)pingTimeout:(NSNumber *)index
+{
+    if ([index intValue]==_sendCount && _sendCount<=MAXCOUNT_PING+1) {
+        NSString *timeoutLog = [NSString stringWithFormat:@"%@ time out", _hostAddress];
+        if(self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]){
+            [self.delegate appendPingLog:timeoutLog];
+        }
+        [self sendPing];
     }
 }
 
