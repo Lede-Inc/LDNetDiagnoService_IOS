@@ -242,22 +242,16 @@
             [pingAdd addObject:[_dnsServers objectAtIndex:0]];
             [pingInfo addObject:@"DNS服务器"];
         }
-        if ([_hostAddress count]>0) {
-            [pingAdd addObject:[_hostAddress objectAtIndex:0]];
-            [pingInfo addObject:@"远端IP"];
+        [self recordStepInfo:@"\n开始ping..."];
+        _netPinger = [[LDNetPing alloc] init];
+        _netPinger.delegate = self;
+        for (int i=0; i<[pingAdd count]; i++) {
+            [self recordStepInfo:[NSString stringWithFormat:@"ping: %@ %@ ...", [pingInfo objectAtIndex:i], [pingAdd objectAtIndex:i]]];
+            [_netPinger runWithHostName: [pingAdd objectAtIndex:i]];
         }
-    } else {
-        [pingAdd addObject:_dormain];
-        [pingInfo addObject:@""];
     }
     
-    [self recordStepInfo:@"\n开始ping..."];
-    _netPinger = [[LDNetPing alloc] init];
-    _netPinger.delegate = self;
-    for (int i=0; i<[pingAdd count]; i++) {
-        [self recordStepInfo:[NSString stringWithFormat:@"ping: %@ %@ ...", [pingInfo objectAtIndex:i], [pingAdd objectAtIndex:i]]];
-        [_netPinger runWithHostName: [pingAdd objectAtIndex:i]];
-    }
+    
 }
 
 
