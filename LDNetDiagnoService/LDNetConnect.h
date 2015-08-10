@@ -13,8 +13,8 @@
  *
  */
 @protocol LDNetConnectDelegate <NSObject>
--(void)appendSocketLog:(NSString *)socketLog;
--(void)connectDidEnd:(BOOL)success;
+- (void)appendSocketLog:(NSString *)socketLog;
+- (void)connectDidEnd:(BOOL)success;
 @end
 
 
@@ -23,7 +23,7 @@
  * 主要是通过建立socket连接的过程，监控目标主机是否连通
  * 连续执行五次，因为每次的速度不一致，可以观察其平均速度来判断网络情况
  */
-@interface LDNetConnect : NSObject{
+@interface LDNetConnect : NSObject {
 }
 
 @property (nonatomic, weak) id<LDNetConnectDelegate> delegate;

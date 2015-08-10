@@ -15,8 +15,8 @@
  *
  */
 @protocol LDNetPingDelegate <NSObject>
--(void)appendPingLog:(NSString *)pingLog;
--(void)netPingDidEnd;
+- (void)appendPingLog:(NSString *)pingLog;
+- (void)netPingDidEnd;
 @end
 
 
@@ -39,7 +39,6 @@
 /**
  * 停止当前ping动作
  */
-- (void) stopPing;
+- (void)stopPing;
 
 @end
-

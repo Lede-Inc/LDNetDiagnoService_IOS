@@ -13,7 +13,8 @@
 /**
  * Retourne un timestamp en microsecondes.
  */
-+ (long)getMicroSeconds{
++ (long)getMicroSeconds
+{
     struct timeval time;
     gettimeofday(&time, NULL);
     return time.tv_usec;
@@ -22,9 +23,10 @@
 /**
  * Calcule une durée en millisecondes par rapport au timestamp passé en paramètre.
  */
-+ (long)computeDurationSince:(long)uTime{
++ (long)computeDurationSince:(long)uTime
+{
     long now = [LDNetTimer getMicroSeconds];
-    if(now < uTime) {
+    if (now < uTime) {
         return 1000000 - uTime + now;
     }
     return now - uTime;
