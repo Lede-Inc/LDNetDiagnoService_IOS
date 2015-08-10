@@ -137,7 +137,7 @@
 
 
 /**
- * 停止诊断网络
+ * 停止诊断网络, 清空诊断状态
  */
 - (void)stopNetDialogsis
 {
@@ -314,7 +314,9 @@
 }
 
 
-#pragma mark netPingDelegate
+#pragma mark -
+#pragma mark - netPingDelegate
+
 - (void)appendPingLog:(NSString *)pingLog
 {
     [self recordStepInfo:pingLog];
