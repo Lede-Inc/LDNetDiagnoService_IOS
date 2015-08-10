@@ -57,7 +57,7 @@
         [self.delegate appendSocketLog:[NSString stringWithFormat:@"connect to host %@ ...", _hostAddress]];
     }
     _startTime = [LDNetTimer getMicroSeconds];
-    [self Connect];
+    [self connect];
     do {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     } while (_connectCount < MAXCOUNT_CONNECT);
@@ -66,7 +66,7 @@
 /**
  * 建立socket对hostaddress进行连接
  */
--(void)Connect
+-(void)connect
 {
     //创建套接字
     CFSocketContext CTX = {0,(__bridge_retained void *)(self),NULL,NULL,NULL};
@@ -103,13 +103,13 @@ static void TCPServerConnectCallBack(CFSocketRef socket, CFSocketCallBackType ty
     {
         printf("connect");
         LDNetConnect *con = (__bridge_transfer LDNetConnect *)info;
-        [con ReadStream:FALSE];
+        [con readStream:FALSE];
     }
     else
     {
         
         LDNetConnect *con = (__bridge_transfer LDNetConnect *)info;
-        [con ReadStream:TRUE];
+        [con readStream:TRUE];
         
     }
 }
@@ -117,7 +117,7 @@ static void TCPServerConnectCallBack(CFSocketRef socket, CFSocketCallBackType ty
 /**
  * 返回之后的一系列操作
  */
--(void)ReadStream:(BOOL)success
+-(void)readStream:(BOOL)success
 {
 //    NSString *errorLog = @"";
     if (success) {
@@ -145,7 +145,7 @@ static void TCPServerConnectCallBack(CFSocketRef socket, CFSocketCallBackType ty
     _connectCount++;
     if (_connectCount < MAXCOUNT_CONNECT) {
         _startTime = [LDNetTimer getMicroSeconds];
-        [self Connect];
+        [self connect];
         
     } else {
         if(self.delegate && [self.delegate respondsToSelector:@selector(connectDidEnd:)]){
