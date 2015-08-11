@@ -111,7 +111,6 @@
         NSMutableString *traceTTLLog = [[NSMutableString alloc] initWithCapacity:20];
         [traceTTLLog appendFormat:@"%d\t", ttl];
         for (int try = 0; try < maxAttempts; try ++) {
-            delta = -1;
             startTime = [LDNetTimer getMicroSeconds];
             //发送成功返回值等于发送消息的长度
             if (sendto(send_sock, cmsg, sizeof(cmsg), 0, (struct sockaddr *)&destination,

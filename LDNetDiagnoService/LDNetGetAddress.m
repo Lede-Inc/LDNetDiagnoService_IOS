@@ -86,7 +86,6 @@
     struct sockaddr *sa;
     struct sockaddr *sa_tab[RTAX_MAX];
     int i;
-    int r = -1;
 
     if (sysctl(mib, sizeof(mib) / sizeof(int), 0, &l, 0, 0) < 0) {
         address = @"192.168.0.1";
@@ -123,7 +122,6 @@
                 if (((struct sockaddr_in *)sa_tab[RTAX_DST])->sin_addr.s_addr == 0) {
                     in_addr_t addr =
                         ((struct sockaddr_in *)(sa_tab[RTAX_GATEWAY]))->sin_addr.s_addr;
-                    r = 0;
                     address =
                         [NSString stringWithFormat:@"%s", inet_ntoa(*((struct in_addr *)&addr))];
                     NSLog(@"address%@", address);

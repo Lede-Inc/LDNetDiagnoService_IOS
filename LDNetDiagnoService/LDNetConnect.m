@@ -121,10 +121,10 @@ static void TCPServerConnectCallBack(CFSocketRef socket, CFSocketCallBackType ty
         _isExistSuccess = TRUE;
         NSInteger interval = [LDNetTimer computeDurationSince:_startTime] / 1000;
         _sumTime += interval;
-        NSLog(@"connect success %ld", interval);
+        NSLog(@"connect success %ld", (long)interval);
         _resultLog = [_resultLog
             stringByAppendingString:[NSString stringWithFormat:@"%d's time=%ldms, ",
-                                                               _connectCount + 1, interval]];
+                                                               _connectCount + 1, (long)interval]];
     } else {
         _sumTime = 99999;
         _resultLog =
@@ -136,7 +136,8 @@ static void TCPServerConnectCallBack(CFSocketRef socket, CFSocketCallBackType ty
             _resultLog = [_resultLog substringToIndex:[_resultLog length] - 1];
         } else {
             _resultLog = [_resultLog
-                stringByAppendingString:[NSString stringWithFormat:@"average=%ldms", _sumTime / 4]];
+                stringByAppendingString:[NSString stringWithFormat:@"average=%ldms",
+                                                                   (long)(_sumTime / 4)]];
         }
         if (self.delegate && [self.delegate respondsToSelector:@selector(appendSocketLog:)]) {
             [self.delegate appendSocketLog:_resultLog];

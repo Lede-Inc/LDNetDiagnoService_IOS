@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'LDNetDiagnoService'
-  s.version  = '1.1.0'
+  s.version  = '1.1.1'
   s.license  = {:type => 'MIT', :file => 'LICENSE'}
   s.summary  = '利用TCP Connect和traceroute的原理，对指定域名（通常为后台API的提供域名）进行网络诊断，并收集诊断日志。'
   s.homepage = 'https://git.ms.netease.com/commonlibraryios/LDNetDiagnoService_IOS'
