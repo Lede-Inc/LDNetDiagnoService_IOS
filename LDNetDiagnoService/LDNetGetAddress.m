@@ -186,6 +186,7 @@
     }
 
     res_nclose(res);
+    free(res);
 
     return [NSArray arrayWithArray:servers];
 }
