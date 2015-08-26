@@ -18,6 +18,7 @@
     int _sendCount;  //当前执行次数
     long _startTime; //每次执行的开始时间
     NSString *_hostAddress; //目标域名的IP地址
+    BOOL _isLargePing;
     NSTimer *timer;
 }
 
@@ -49,11 +50,12 @@
  * 调用pinger解析指定域名
  * @param hostName 指定域名
  */
-- (void)runWithHostName:(NSString *)hostName{
+- (void)runWithHostName:(NSString *)hostName normalPing:(BOOL)normalPing{
     assert(self.pinger == nil);
     self.pinger = [LDSimplePing simplePingWithHostName:hostName];
     assert(self.pinger != nil);
     
+    _isLargePing = !normalPing;
     self.pinger.delegate = self;
     [self.pinger start];
     
@@ -85,7 +87,18 @@
         assert(self.pinger != nil);
         _sendCount++;
         _startTime = [LDNetTimer getMicroSeconds];
-        [self.pinger sendPingWithData:nil];
+        if (_isLargePing) {
+            NSString *testStr = @"";
+            for (int i=0; i<408; i++) {
+                testStr = [testStr stringByAppendingString:@"abcdefghi "];
+            }
+            testStr = [testStr stringByAppendingString:@"abcdefgh"];
+            NSData *data = [testStr dataUsingEncoding:NSASCIIStringEncoding];
+            NSLog(@"data length = %d", [data length]);
+            [self.pinger sendPingWithData:data];
+        } else {
+            [self.pinger sendPingWithData:nil];
+        }
         timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(pingTimeout:) userInfo:[NSNumber numberWithInt:_sendCount] repeats:NO];
     }
 }

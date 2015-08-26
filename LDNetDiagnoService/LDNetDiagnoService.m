@@ -191,6 +191,9 @@
         return;
     }
     if (_isRunning) {
+        [self recordOutIPInfo];
+    }
+    if (_isRunning) {
         _connectSuccess = FALSE;
         //connect诊断，同步过程
         [self recordStepInfo:@"\n开始TCP连接测试..."];
@@ -222,6 +225,30 @@
     }
 }
 
+
+/**
+ * 使用接口获取用户的出口IP和DNS信息
+ */
+- (void)recordOutIPInfo
+{
+    [self recordStepInfo:@"\n开始获取运营商信息..."];
+    // 初始化请求, 这里是变长的, 方便扩展
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://nstool.netease.com/info.js"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    
+    // 发送同步请求, data就是返回的数据
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+    if (error != nil) {
+        NSLog(@"error = %@",error);
+        [self recordStepInfo:@"\n获取超时"];
+        return;
+    }
+    NSString *response = [[NSString alloc] initWithData:data encoding:0x80000632];
+    NSLog(@"response: %@", response);
+    [self recordStepInfo:response];
+}
+
+
 /**
  * 构建ping列表并进行ping诊断
  */
@@ -242,15 +269,22 @@
             [pingAdd addObject:[_dnsServers objectAtIndex:0]];
             [pingInfo addObject:@"DNS服务器"];
         }
-        [self recordStepInfo:@"\n开始ping..."];
-        _netPinger = [[LDNetPing alloc] init];
-        _netPinger.delegate = self;
-        for (int i=0; i<[pingAdd count]; i++) {
-            [self recordStepInfo:[NSString stringWithFormat:@"ping: %@ %@ ...", [pingInfo objectAtIndex:i], [pingAdd objectAtIndex:i]]];
-            [_netPinger runWithHostName: [pingAdd objectAtIndex:i]];
-        }
+    } else {
+        [pingAdd addObject:@"114.113.198.130"];
+        [pingInfo addObject:@"开放服务器"];
     }
-    
+    [self recordStepInfo:@"\n开始ping..."];
+    _netPinger = [[LDNetPing alloc] init];
+    _netPinger.delegate = self;
+    for (int i=0; i<[pingAdd count]; i++) {
+        [self recordStepInfo:[NSString stringWithFormat:@"ping: %@ %@ ...", [pingInfo objectAtIndex:i], [pingAdd objectAtIndex:i]]];
+        if ([[pingAdd objectAtIndex:i] isEqualToString:@"114.113.198.130"]) {
+            [_netPinger runWithHostName: [pingAdd objectAtIndex:i] normalPing:NO];
+        } else {
+            [_netPinger runWithHostName: [pingAdd objectAtIndex:i] normalPing:YES];
+        }
+        
+    }
     
 }
 

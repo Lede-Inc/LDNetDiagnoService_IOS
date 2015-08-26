@@ -34,7 +34,7 @@
 /**
  * 通过hostname 进行ping诊断
  */
-- (void)runWithHostName:(NSString *)hostName;
+- (void)runWithHostName:(NSString *)hostName normalPing:(BOOL)normalPing;
 
 /**
  * 停止当前ping动作
