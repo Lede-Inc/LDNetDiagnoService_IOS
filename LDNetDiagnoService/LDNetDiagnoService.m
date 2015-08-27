@@ -15,6 +15,9 @@
 #import "LDNetTimer.h"
 #import "LDNetConnect.h"
 
+static NSString *const kPingOpenServerIP = @"114.113.198.130";
+static NSString *const kCheckOutIPURL = @"http://nstool.netease.com/info.js";
+
 @interface LDNetDiagnoService () <LDNetPingDelegate, LDNetTraceRouteDelegate,
                                   LDNetConnectDelegate> {
     NSString *_appCode;  //客户端标记
@@ -103,7 +106,7 @@
         }
         return;
     }
-    
+
     if (_isRunning) {
         [self recordOutIPInfo];
     }
@@ -125,7 +128,7 @@
             [self pingDialogsis:!_connectSuccess];
         }
     }
-    
+
 
     if (_isRunning) {
         //开始诊断traceRoute
@@ -295,13 +298,17 @@
 {
     [self recordStepInfo:@"\n开始获取运营商信息..."];
     // 初始化请求, 这里是变长的, 方便扩展
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://nstool.netease.com/info.js"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    
+    NSMutableURLRequest *request =
+        [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:kCheckOutIPURL]
+                                     cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                 timeoutInterval:10];
+
     // 发送同步请求, data就是返回的数据
     NSError *error = nil;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+    NSData *data =
+        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
     if (error != nil) {
-        NSLog(@"error = %@",error);
+        NSLog(@"error = %@", error);
         [self recordStepInfo:@"\n获取超时"];
         return;
     }
@@ -328,29 +335,29 @@
             [pingAdd addObject:_gatewayIp];
             [pingInfo addObject:@"本地网关"];
         }
-        if ([_dnsServers count]>0) {
+        if ([_dnsServers count] > 0) {
             [pingAdd addObject:[_dnsServers objectAtIndex:0]];
             [pingInfo addObject:@"DNS服务器"];
         }
-    } else {
-        [pingAdd addObject:@"114.113.198.130"];
-        [pingInfo addObject:@"开放服务器"];
     }
+
+    //不管服务器解析DNS是否可达，均需要ping指定ip地址
+    [pingAdd addObject:kPingOpenServerIP];
+    [pingInfo addObject:@"开放服务器"];
+
     [self recordStepInfo:@"\n开始ping..."];
     _netPinger = [[LDNetPing alloc] init];
     _netPinger.delegate = self;
-    for (int i=0; i<[pingAdd count]; i++) {
+    for (int i = 0; i < [pingAdd count]; i++) {
         [self recordStepInfo:[NSString stringWithFormat:@"ping: %@ %@ ...",
-                              [pingInfo objectAtIndex:i],
-                              [pingAdd objectAtIndex:i]]];
-        if ([[pingAdd objectAtIndex:i] isEqualToString:@"114.113.198.130"]) {
-            [_netPinger runWithHostName: [pingAdd objectAtIndex:i] normalPing:NO];
+                                                        [pingInfo objectAtIndex:i],
+                                                        [pingAdd objectAtIndex:i]]];
+        if ([[pingAdd objectAtIndex:i] isEqualToString:kPingOpenServerIP]) {
+            [_netPinger runWithHostName:[pingAdd objectAtIndex:i] normalPing:NO];
         } else {
-            [_netPinger runWithHostName: [pingAdd objectAtIndex:i] normalPing:YES];
+            [_netPinger runWithHostName:[pingAdd objectAtIndex:i] normalPing:YES];
         }
-        
     }
-    
 }
 
 
