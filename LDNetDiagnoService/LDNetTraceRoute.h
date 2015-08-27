@@ -8,18 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-static const int TRACEROUTE_PORT     = 30001;
-static const int TRACEROUTE_MAX_TTL  = 30;
+static const int TRACEROUTE_PORT = 30001;
+static const int TRACEROUTE_MAX_TTL = 30;
 static const int TRACEROUTE_ATTEMPTS = 3;
-static const int TRACEROUTE_TIMEOUT  = 5000000;
+static const int TRACEROUTE_TIMEOUT = 5000000;
 
 /*
  * @protocal LDNetTraceRouteDelegate监测TraceRoute命令的的输出到日志变量；
  *
  */
 @protocol LDNetTraceRouteDelegate <NSObject>
--(void)appendRouteLog:(NSString *)routeLog;
--(void)traceRouteDidEnd;
+- (void)appendRouteLog:(NSString *)routeLog;
+- (void)traceRouteDidEnd;
 @end
 
 
@@ -28,11 +28,11 @@ static const int TRACEROUTE_TIMEOUT  = 5000000;
  * 主要是通过模拟shell命令traceRoute的过程，监控网络站点间的跳转
  * 默认执行20转，每转进行三次发送测速
  */
-@interface LDNetTraceRoute : NSObject{
-    int udpPort; //执行端口
-    int maxTTL;  //执行转数
-    int readTimeout; //每次发送时间的timeout
-    int maxAttempts; //每转的发送次数
+@interface LDNetTraceRoute : NSObject {
+    int udpPort;      //执行端口
+    int maxTTL;       //执行转数
+    int readTimeout;  //每次发送时间的timeout
+    int maxAttempts;  //每转的发送次数
     NSString *running;
     bool isrunning;
 }
@@ -42,7 +42,10 @@ static const int TRACEROUTE_TIMEOUT  = 5000000;
 /**
  * 初始化
  */
-- (LDNetTraceRoute *)initWithMaxTTL:(int)ttl timeout:(int)timeout maxAttempts:(int)attempts port:(int)port;
+- (LDNetTraceRoute *)initWithMaxTTL:(int)ttl
+                            timeout:(int)timeout
+                        maxAttempts:(int)attempts
+                               port:(int)port;
 
 /**
  * 监控tranceroute 路径

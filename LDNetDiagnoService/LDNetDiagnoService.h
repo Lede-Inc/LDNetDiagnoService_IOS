@@ -16,21 +16,21 @@
 /**
  * 告诉调用者诊断开始
  */
--(void)netDiagnosisDidStarted;
+- (void)netDiagnosisDidStarted;
 
 
 /**
  * 逐步返回监控信息，
  * 如果需要实时显示诊断数据，实现此接口方法
  */
--(void)netDiagnosisStepInfo:(NSString *)stepInfo;
+- (void)netDiagnosisStepInfo:(NSString *)stepInfo;
 
 
 /**
  * 因为监控过程是一个异步过程，当监控结束后告诉调用者；
  * 在监控结束的时候，对监控字符串进行处理
  */
--(void)netDiagnosisDidEnd:(NSString *)allLogInfo;
+- (void)netDiagnosisDidEnd:(NSString *)allLogInfo;
 
 @end
 
@@ -41,14 +41,15 @@
  */
 @interface LDNetDiagnoService : NSObject {
 }
-@property (nonatomic, weak, readwrite)id<LDNetDiagnoServiceDelegate> delegate; //向调用者输出诊断信息接口
-@property (nonatomic, retain) NSString *dormain; //接口域名
+@property (nonatomic, weak, readwrite)
+    id<LDNetDiagnoServiceDelegate> delegate;      //向调用者输出诊断信息接口
+@property (nonatomic, retain) NSString *dormain;  //接口域名
 
 /**
  * 初始化网络诊断服务
  * theAppCode,theUID, theDormain为必填项
  */
--(id) initWithAppCode:(NSString *)theAppCode
+- (id)initWithAppCode:(NSString *)theAppCode
               appName:(NSString *)theAppName
            appVersion:(NSString *)theAppVersion
                userID:(NSString *)theUID
@@ -63,18 +64,18 @@
 /**
  * 开始诊断网络
  */
--(void) startNetDiagnosis;
+- (void)startNetDiagnosis;
 
 
 /**
  * 停止诊断网络
  */
--(void) stopNetDialogsis;
+- (void)stopNetDialogsis;
 
 
 /**
  * 打印整体loginInfo；
  */
--(void)printLogInfo;
+- (void)printLogInfo;
 
 @end
