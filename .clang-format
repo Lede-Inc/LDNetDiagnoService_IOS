@@ -1,0 +1,99 @@
+---
+# 配置以什么语言format当前文件
+# CPP: C, C++, Objective-C, ObjectiveC++;
+Language:        Cpp
+
+#在llvm的配置基础上加定制配置
+BasedOnStyle:  llvm
+
+# 访问修饰符如@public、@private、@protected的缩进
+# 通常用在类定义和类别定义的私有变量进行修饰，作用表示很大，需要在变量前一个字符，设定为-1;
+AccessModifierOffset: -2
+
+# ??? 如果为true，将逃脱换行尽量远抛，否则将其搁在逃脱行的右侧, 没有什么用
+AlignEscapedNewlinesLeft: false
+
+# true: 表示对齐连续的紧跟注释（连续行使用双斜杠注释，包括在函数体内），多用于Model定义、property说明、私有成员变量说明；
+AlignTrailingComments: true
+
+#在紧跟注释之前所留空格数，一般建议为2个空格
+SpacesBeforeTrailingComments: 2
+
+#Block－Body的缩进列数
+ObjCBlockIndentWidth: 4
+
+#false：设置不允许一行的Block在一行显示；
+AllowShortBlocksOnASingleLine: false
+
+
+# true: 在超过规定列数之后，在方法声明中将所有参数换行显示（包括在方法声明和实现中，不包括C函数方法）；
+AllowAllParametersOfDeclarationOnNextLine: true
+
+# true：允许较短(一般只有一行，多为内联C函数)的Function在一行显示,如“int f() { return 1; }”，规定设为false；
+AllowShortFunctionsOnASingleLine: false
+
+#true: 允许较短的if判断在一行显示，否则换行显示（没有自动加花括号）；
+AllowShortIfStatementsOnASingleLine: true
+
+#??? true 允许较短的循环（while、for）在一行显示，否则换行显示（没有自动加花括号）；
+AllowShortLoopsOnASingleLine: true
+
+#true：允许只有Break语句的case标签在一行显示，false：不允许（自动换行显示）, 规范为不允许
+AllowShortCaseLabelsOnASingleLine: false
+
+#true：允许将较长的literal－String字符串分割成多行显示；
+AlwaysBreakBeforeMultilineStrings: false
+
+#设置代码的最大长度（回自动对代码长度进行换行显示，并对注释自动换行；当长度加大的时候，AllowAllParametersOfDeclarationOnNextLine＝true失效）
+ColumnLimit: 100
+
+#连续行的缩进长度（通常缩进＋设置值）， 一般用于首参数小于后续参数的method名字、多行的String－literals
+ContinuationIndentWidth: 4
+
+#true: 将switch的case标签从switch表达式缩进一级；否则喝switch表达式对齐；
+IndentCaseLabels: true
+
+#缩进字符长度
+IndentWidth:     4
+
+#整个文件任意位置最大能够保持的连续空行数（如果超过MAX值，减少到Max行，小于不管；）
+MaxEmptyLinesToKeep: 2
+
+#true: 在@property之后添加一个空格，否则不添加空格
+ObjCSpaceAfterProperty: true
+
+#true: 在类与协议名的左括号之间添加一空格，否则不添加空格; 规范不添加；
+ObjCSpaceBeforeProtocolList: true
+
+#所有位置的指针星号（＊）或取地址符号（&）对齐位置：Left、Middle、Right，当作为乘号时候居中 （规范为Right）
+PointerAlignment: Right
+
+#true:在赋值运算符之前添加一个空格，否则去掉；(规范为添加)
+SpaceBeforeAssignmentOperators: true
+
+#是否在括号之前添加一个空格，Never：任何情况都不添加；ControlStatements：只在控制结构（for、if、while）的地方添加空格；AlWays: 除开在function－like的的宏定义之外在任何地方都需要添加空格；（规范为ControlStatements）
+SpaceBeforeParens: ControlStatements
+
+#true：在空括号内添加空格，false:不添加；(规范不添加)
+SpaceInEmptyParentheses: false
+
+#true: 自动给mehtod-body内的括号和内容之间添加空格，false：不添加；（规范不添加）
+SpacesInParentheses: false
+
+#true: 在尖括号和内容之间各留一个空格，否则不添加；（规范为不添加）
+SpacesInAngles:  false
+
+#true: 自动在Container literals（NSArray）之间添加空格
+SpacesInContainerLiterals: true
+
+#true: 在C风格的强制转换的时候添加空格；false: 不添加
+SpacesInCStyleCastParentheses: false
+
+#配置花括号的换行标准：Attach：任何时候都不换行；Allman：任何时候始终换行；Stroustrup: 只在function和else处换行；Linux:只在function、namespace、class的时候换行；GNU：始终换行，并在控制块添加一个额外的缩进，但在class、function、definitions的时候不换行；（规范）
+BreakBeforeBraces: Linux
+
+
+#当前配置生效开关，true：打开，false：关闭
+DisableFormat: false
+...
+
