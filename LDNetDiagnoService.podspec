@@ -3,9 +3,9 @@ Pod::Spec.new do |s|
   s.version  = '1.1.2'
   s.license  = {:type => 'MIT', :file => 'LICENSE'}
   s.summary  = '利用TCP Connect和traceroute的原理，对指定域名（通常为后台API的提供域名）进行网络诊断，并收集诊断日志。'
-  s.homepage = 'https://git.ms.netease.com/commonlibraryios/LDNetDiagnoService_IOS'
+  s.homepage = 'https://github.com/Lede-Inc/LDNetDiagnoService_IOS'
   s.authors  = { 'huipang' => 'huipang@corp.netease.com' }
-  s.source   = { :git => 'https://git.ms.netease.com/commonlibraryios/LDNetDiagnoService_IOS.git', :tag => "#{s.version}"}
+  s.source   = { :git => 'https://github.com/Lede-Inc/LDNetDiagnoService_IOS.git', :tag => "#{s.version}"}
 
   s.platform = :ios
   s.requires_arc = true
