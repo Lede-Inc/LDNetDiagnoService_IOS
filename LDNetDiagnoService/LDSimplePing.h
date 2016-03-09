@@ -62,6 +62,7 @@
 #include <AssertMacros.h>
 
 #pragma mark * SimplePing
+uint16_t in_cksum(const void *buffer, size_t bufferLen);
 
 // The SimplePing class is a very simple class that lets you send and receive pings.
 

@@ -133,10 +133,7 @@ static NSString *const kCheckOutIPURL = @"";
     if (_isRunning) {
         //开始诊断traceRoute
         [self recordStepInfo:@"\n开始traceroute..."];
-        _traceRouter = [[LDNetTraceRoute alloc] initWithMaxTTL:TRACEROUTE_MAX_TTL
-                                                       timeout:TRACEROUTE_TIMEOUT
-                                                   maxAttempts:TRACEROUTE_ATTEMPTS
-                                                          port:TRACEROUTE_PORT];
+        _traceRouter = [[LDNetTraceRoute alloc] init];
         _traceRouter.delegate = self;
         if (_traceRouter) {
             [NSThread detachNewThreadSelector:@selector(doTraceRoute:)
@@ -342,8 +339,8 @@ static NSString *const kCheckOutIPURL = @"";
     }
 
     //不管服务器解析DNS是否可达，均需要ping指定ip地址
-    //[pingAdd addObject:kPingOpenServerIP];
-    //[pingInfo addObject:@"开放服务器"];
+    [pingAdd addObject:[_hostAddress objectAtIndex:0]];
+    [pingInfo addObject:@"开放服务器"];
 
     [self recordStepInfo:@"\n开始ping..."];
     _netPinger = [[LDNetPing alloc] init];
@@ -371,22 +368,44 @@ static NSString *const kCheckOutIPURL = @"";
 
 - (void)netPingDidEnd
 {
-    // net
+    if(_netPinger != nil){
+        HTPingResult *pingResult = [_netPinger getPingResult];
+        NSString *log = [NSString stringWithFormat:@"ip=%@\nsendCount=%d\nreceiveCount=%d\nttl=%d\nlossRate=%f\nrttMin=%f\nrttAvg=%f\nrttMax=%f\nrttMDev=%f\n",
+                         pingResult.ip,
+                         pingResult.sendCount,
+                         pingResult.receiveCount,
+                         pingResult.ttl,
+                         pingResult.lossRate,
+                         pingResult.rttMin,
+                         pingResult.rttAvg,
+                         pingResult.rttMax,
+                         pingResult.rttMDev];
+        
+        [self recordStepInfo:log];
+        
+        
+//        NSMutableArray *pingInfos = [_netPinger getPingInfos];
+//        
+//        if(pingInfos != nil){
+//            for(int i = 0; i < pingInfos.count; i++){
+//                HTIPInfo *pingInfo = [pingInfos objectAtIndex:i];
+//                NSString *log = [NSString stringWithFormat:@"ip=%@, ttl=%u, time=%ld",
+//                                 pingInfo.ip, pingInfo.ttl, pingInfo.time];
+//                [self recordStepInfo:log];
+//            }
+//        }
+    }
 }
 
 #pragma mark - traceRouteDelegate
-- (void)appendRouteLog:(NSString *)routeLog
+- (void)traceRecord:(HTTraceRouteRecord *)record
 {
-    [self recordStepInfo:routeLog];
-}
-
-- (void)traceRouteDidEnd
-{
-    _isRunning = NO;
-    [self recordStepInfo:@"\n网络诊断结束\n"];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(netDiagnosisDidEnd:)]) {
-        [self.delegate netDiagnosisDidEnd:_logInfo];
+    if(record == nil) return;
+    NSString *recordLog = @"******";
+    if(record.ip != nil){
+        recordLog = [NSString stringWithFormat:@"%d\t%@\t%fms\n", record.ttl, record.ip, record.avgTime];
     }
+    [self recordStepInfo:recordLog];
 }
 
 #pragma mark - connectDelegate

@@ -8,20 +8,41 @@
 
 #import <Foundation/Foundation.h>
 
-static const int TRACEROUTE_PORT = 30001;
-static const int TRACEROUTE_MAX_TTL = 30;
+static const int TRACEROUTE_PORT = 31234;
+static const int TRACEROUTE_MAX_TTL = 32;
 static const int TRACEROUTE_ATTEMPTS = 3;
 static const int TRACEROUTE_TIMEOUT = 5000000;
+
+typedef enum {
+    HTTRACEROUTE_RESULT_TYPE_SUCCESS,
+    HTTRACEROUTE_RESULT_TYPE_ERROR_HOST,
+    HTTRACEROUTE_RESULT_TYPE_ERROR_SOCKET,
+    HTTRACEROUTE_RESULT_TYPE_ERROR_SET_TTL,
+    HTTRACEROUTE_RESULT_TYPE_ERROR_FCNTL,
+} HTTRACEROUTE_RESULT_TYPE;
+
+@interface HTTraceRouteRecord : NSObject
+
+@property (nonatomic, assign, readwrite) int ttl;
+@property (nonatomic, assign, readwrite) float avgTime;
+@property (nonatomic, copy, readwrite) NSString *ip;
+
+@end
 
 /*
  * @protocal LDNetTraceRouteDelegate监测TraceRoute命令的的输出到日志变量；
  *
  */
 @protocol LDNetTraceRouteDelegate <NSObject>
-- (void)appendRouteLog:(NSString *)routeLog;
-- (void)traceRouteDidEnd;
+- (void)traceRecord:(HTTraceRouteRecord *)record;
 @end
 
+@interface HTTraceRouteResult : NSObject
+
+@property (nonatomic, assign, readwrite) HTTRACEROUTE_RESULT_TYPE resultType;
+@property (nonatomic, strong, readwrite) NSMutableArray *records;
+
+@end
 
 /*
  * @class LDNetTraceRoute TraceRoute网络监控
@@ -40,17 +61,9 @@ static const int TRACEROUTE_TIMEOUT = 5000000;
 @property (nonatomic, weak) id<LDNetTraceRouteDelegate> delegate;
 
 /**
- * 初始化
- */
-- (LDNetTraceRoute *)initWithMaxTTL:(int)ttl
-                            timeout:(int)timeout
-                        maxAttempts:(int)attempts
-                               port:(int)port;
-
-/**
  * 监控tranceroute 路径
  */
-- (Boolean)doTraceRoute:(NSString *)host;
+- (HTTraceRouteResult *)doTraceRoute:(NSString *)host;
 
 /**
  * 停止traceroute

@@ -11,7 +11,7 @@
 #import "LDNetPing.h"
 #import "LDNetTimer.h"
 
-#define MAXCOUNT_PING 4
+#define MAXCOUNT_PING 10
 
 @interface LDNetPing () {
     BOOL _isStartSuccess; //监测第一次ping是否成功
@@ -20,6 +20,7 @@
     NSString *_hostAddress; //目标域名的IP地址
     BOOL _isLargePing;
     NSTimer *timer;
+    NSMutableArray *pingInfoArray;
 }
 
 @property (nonatomic, strong, readwrite) LDSimplePing *pinger;
@@ -34,6 +35,61 @@
 - (void)dealloc
 {
     [self->_pinger stop];
+}
+
+-(HTPingResult*)getPingResult
+{
+    HTPingResult *pingResult = [[HTPingResult alloc] init];
+    HTPingInfo *successPingInfo = nil;
+    int successCount = 0;
+    long rttMin = LONG_MAX;
+    long rttMax = 0;
+    long rttTotal = 0;
+    for(int i = 0; i < pingInfoArray.count; i++){
+        HTPingInfo *item = [pingInfoArray objectAtIndex:i];
+        if(item != nil){
+            if(item.isSuccess && successPingInfo == nil){
+                successPingInfo = item;
+            }
+            if(item.isSuccess){
+                successCount++;
+                
+                if(item.time > rttMax){
+                    rttMax = item.time;
+                }
+                if(item.time < rttMin){
+                    rttMin = item.time;
+                }
+                rttTotal += item.time;
+            }
+        }
+    }
+    if(successPingInfo != nil){
+        pingResult.ip = successPingInfo.ip;
+        pingResult.ttl = successPingInfo.ttl;
+    }
+    pingResult.sendCount = (int)pingInfoArray.count;
+    pingResult.receiveCount = successCount;
+    pingResult.lossRate = (float)(pingResult.sendCount - pingResult.receiveCount) / pingResult.sendCount;
+    
+    pingResult.rttMin = rttMin / 1000.0;
+    pingResult.rttMax = rttMax / 1000.0;
+    
+    long rttAvg = rttTotal / successCount;
+    
+    pingResult.rttAvg = rttAvg / 1000.0;
+    
+    float totalDiff = 0;
+    for(int i = 0; i < pingInfoArray.count; i++){
+        HTPingInfo *item = [pingInfoArray objectAtIndex:i];
+        if(item != nil && item.isSuccess){
+            totalDiff += ABS(item.time - rttAvg);
+        }
+    }
+    pingResult.rttMDev = totalDiff / successCount / 1000.0;
+    pingResult.pingInfos = pingInfoArray;
+    
+    return pingResult;
 }
 
 
@@ -53,6 +109,12 @@
  * @param hostName 指定域名
  */
 - (void)runWithHostName:(NSString *)hostName normalPing:(BOOL)normalPing{
+    
+    if(pingInfoArray == nil){
+        pingInfoArray = [[NSMutableArray alloc] init];
+    }
+    [pingInfoArray removeAllObjects];
+    
     assert(self.pinger == nil);
     self.pinger = [LDSimplePing simplePingWithHostName:hostName];
     assert(self.pinger != nil);
@@ -115,9 +177,14 @@
         _sendCount > 1) {
         NSString *timeoutLog =
             [NSString stringWithFormat:@"ping: cannot resolve %@: TimeOut", _hostAddress];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]) {
-            [self.delegate appendPingLog:timeoutLog];
-        }
+        
+        HTPingInfo *ipInfo = [[HTPingInfo alloc] init];
+        ipInfo.isSuccess = NO;
+        ipInfo.errorText = timeoutLog;
+        ipInfo.ip = _hostAddress;
+        [pingInfoArray addObject:ipInfo];
+        
+        
         [self sendPing];
     }
 }
@@ -150,11 +217,10 @@
 #pragma unused(pinger)
     assert(pinger == self.pinger);
 #pragma unused(error)
-    NSString *failCreateLog = [NSString stringWithFormat:@"#%u try create failed: %@", _sendCount,
-                                                         [self shortErrorFromError:error]];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]) {
-        [self.delegate appendPingLog:failCreateLog];
-    }
+    
+    NSLog(@"#%u try create failed: %@", _sendCount,
+          [self shortErrorFromError:error]);
+
 
     //如果不是创建套接字失败，都是发送数据过程中的错误,可以继续try发送数据
     if (_isStartSuccess) {
@@ -195,10 +261,11 @@
                                    (unsigned int)OSSwapBigToHostInt16(
                                        ((const ICMPHeader *)[packet bytes])->sequenceNumber),
                                    [self shortErrorFromError:error]];
-    //记录
-    if (self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]) {
-        [self.delegate appendPingLog:sendFailLog];
-    }
+    HTPingInfo *ipInfo = [[HTPingInfo alloc] init];
+    ipInfo.isSuccess = NO;
+    ipInfo.errorText = sendFailLog;
+    ipInfo.ip = _hostAddress;
+    [pingInfoArray addObject:ipInfo];
 
     [self sendPing];
 }
@@ -213,18 +280,26 @@
 #pragma unused(pinger)
     assert(pinger == self.pinger);
 #pragma unused(packet)
+    
+    //add pinginfo to array
+    HTPingInfo *ipInfo = [[HTPingInfo alloc] init];
+    ipInfo.isSuccess = YES;
+    ipInfo.ip = _hostAddress;
+    ipInfo.ttl = (unsigned int)([LDSimplePing ipHeaderInPacket:packet]->timeToLive);
+    ipInfo.time = [LDNetTimer computeDurationSince:_startTime];
+    [pingInfoArray addObject:ipInfo];
 
-    NSString *successLog = [NSString
-        stringWithFormat:@"%lu bytes from %@ icmp_seq=#%u ttl=%d time=%ldms",
-                         (unsigned long)[packet length], _hostAddress,
-                         (unsigned int)OSSwapBigToHostInt16(
-                             [LDSimplePing icmpInPacket:packet]->sequenceNumber),
-                         (unsigned int)([LDSimplePing ipHeaderInPacket:packet]->timeToLive),
-                         [LDNetTimer computeDurationSince:_startTime] / 1000];
-    //记录ping成功的数据
-    if (self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]) {
-        [self.delegate appendPingLog:successLog];
-    }
+//    NSString *successLog = [NSString
+//        stringWithFormat:@"%lu bytes from %@ icmp_seq=#%u ttl=%d time=%ldms",
+//                         (unsigned long)[packet length], _hostAddress,
+//                         (unsigned int)OSSwapBigToHostInt16(
+//                             [LDSimplePing icmpInPacket:packet]->sequenceNumber),
+//                         (unsigned int)([LDSimplePing ipHeaderInPacket:packet]->timeToLive),
+//                         [LDNetTimer computeDurationSince:_startTime] / 1000];
+//    //记录ping成功的数据
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]) {
+//        [self.delegate appendPingLog:successLog];
+//    }
 
     [self sendPing];
 }
@@ -250,10 +325,12 @@
             errorLog = [NSString stringWithFormat:@"#%u try unexpected packet size=%zu", _sendCount,
                                                   (size_t)[packet length]];
         }
-        //记录
-        if (self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]) {
-            [self.delegate appendPingLog:errorLog];
-        }
+        
+        HTPingInfo *ipInfo = [[HTPingInfo alloc] init];
+        ipInfo.isSuccess = NO;
+        ipInfo.errorText = errorLog;
+        ipInfo.ip = _hostAddress;
+        [pingInfoArray addObject:ipInfo];
     }
 
     //当检测到错误数据的时候，再次发送
@@ -330,5 +407,14 @@ NSString *DisplayAddressForAddress(NSData *address)
     assert(result != nil);
     return result;
 }
+
+@end
+
+@implementation HTPingResult
+
+@end
+
+@implementation HTPingInfo
+
 
 @end
