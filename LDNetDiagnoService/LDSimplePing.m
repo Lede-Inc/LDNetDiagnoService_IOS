@@ -59,7 +59,7 @@
 
 #pragma mark * ICMP On-The-Wire Format
 
-static uint16_t in_cksum(const void *buffer, size_t bufferLen)
+uint16_t in_cksum(const void *buffer, size_t bufferLen)
 // This is the standard BSD checksum code, modified to use modern types.
 {
     size_t bytesLeft;
