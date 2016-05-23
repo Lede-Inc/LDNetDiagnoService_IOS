@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0610"
+   LastUpgradeVersion = "0730"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -17,30 +17,16 @@
                BlueprintIdentifier = "629AF6E01A0125E5001CBB3E"
                BuildableName = "LDNetDiagnoServiceDemo.app"
                BlueprintName = "LDNetDiagnoServiceDemo"
-               ReferencedContainer = "container:LDNetDiagnoServiceDemo.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "629AF6F91A0125E5001CBB3E"
-               BuildableName = "LDNetDiagnoServiceDemoTests.xctest"
-               BlueprintName = "LDNetDiagnoServiceDemoTests"
-               ReferencedContainer = "container:LDNetDiagnoServiceDemo.xcodeproj">
+               ReferencedContainer = "container:LDNetDiagnoService.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -49,7 +35,37 @@
                BlueprintIdentifier = "629AF6F91A0125E5001CBB3E"
                BuildableName = "LDNetDiagnoServiceDemoTests.xctest"
                BlueprintName = "LDNetDiagnoServiceDemoTests"
-               ReferencedContainer = "container:LDNetDiagnoServiceDemo.xcodeproj">
+               ReferencedContainer = "container:LDNetDiagnoService.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2942AC921CEC3C650028B3C7"
+               BuildableName = "libLDNetDiagnoServiceTests.xctest"
+               BlueprintName = "libLDNetDiagnoServiceTests"
+               ReferencedContainer = "container:LDNetDiagnoService.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B0535F531CF2EF6200A1E7D6"
+               BuildableName = "libLD111Tests.xctest"
+               BlueprintName = "libLD111Tests"
+               ReferencedContainer = "container:LDNetDiagnoService.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B0535F751CF2EFAD00A1E7D6"
+               BuildableName = "libLDNetDiagnoService1Tests.xctest"
+               BlueprintName = "libLDNetDiagnoService1Tests"
+               ReferencedContainer = "container:LDNetDiagnoService.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -59,44 +75,49 @@
             BlueprintIdentifier = "629AF6E01A0125E5001CBB3E"
             BuildableName = "LDNetDiagnoServiceDemo.app"
             BlueprintName = "LDNetDiagnoServiceDemo"
-            ReferencedContainer = "container:LDNetDiagnoServiceDemo.xcodeproj">
+            ReferencedContainer = "container:LDNetDiagnoService.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "629AF6E01A0125E5001CBB3E"
             BuildableName = "LDNetDiagnoServiceDemo.app"
             BlueprintName = "LDNetDiagnoServiceDemo"
-            ReferencedContainer = "container:LDNetDiagnoServiceDemo.xcodeproj">
+            ReferencedContainer = "container:LDNetDiagnoService.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "629AF6E01A0125E5001CBB3E"
             BuildableName = "LDNetDiagnoServiceDemo.app"
             BlueprintName = "LDNetDiagnoServiceDemo"
-            ReferencedContainer = "container:LDNetDiagnoServiceDemo.xcodeproj">
+            ReferencedContainer = "container:LDNetDiagnoService.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -22,6 +22,7 @@
 
     int tcpPort;             //执行端口
     NSString *_hostAddress;  //目标域名的IP地址
+    BOOL _isIPV6;
     NSString *_resultLog;
     NSInteger _sumTime;
     CFSocketRef _socket;
@@ -48,6 +49,7 @@
 - (void)runWithHostAddress:(NSString *)hostAddress port:(int)port
 {
     _hostAddress = hostAddress;
+    _isIPV6 = [_hostAddress rangeOfString:@":"].location == NSNotFound?NO:YES;
     tcpPort = port;
     _isExistSuccess = FALSE;
     _connectCount = 0;
@@ -69,30 +71,50 @@
  */
 - (void)connect
 {
+    NSData *addrData = nil;
+    
+    //设置地址
+    if (!_isIPV6) {
+        struct sockaddr_in nativeAddr4;
+        memset(&nativeAddr4, 0, sizeof(nativeAddr4));
+        nativeAddr4.sin_len = sizeof(nativeAddr4);
+        nativeAddr4.sin_family = AF_INET;
+        nativeAddr4.sin_port = htons(tcpPort);
+        nativeAddr4.sin_addr.s_addr = inet_addr([_hostAddress UTF8String]);
+        addrData = [NSData dataWithBytes:&nativeAddr4 length:sizeof(nativeAddr4)];
+    } else {
+        struct sockaddr_in6 nativeAddr6;
+        memset(&nativeAddr6, 0, sizeof(nativeAddr6));
+        nativeAddr6.sin6_len = sizeof(nativeAddr6);
+        nativeAddr6.sin6_family = AF_INET6;
+        nativeAddr6.sin6_port = htons(tcpPort);
+        inet_pton(AF_INET6, _hostAddress.UTF8String, &nativeAddr6.sin6_addr);
+        addrData = [NSData dataWithBytes:&nativeAddr6 length:sizeof(nativeAddr6)];
+    }
+    
+    if (addrData != nil) {
+        [self connectWithAddress:addrData];
+    }
+}
+
+-(void)connectWithAddress:(NSData *)addr{
+    struct sockaddr *pSockAddr = (struct sockaddr *)[addr bytes];
+    int addressFamily = pSockAddr->sa_family;
+    
     //创建套接字
     CFSocketContext CTX = {0, (__bridge_retained void *)(self), NULL, NULL, NULL};
-    _socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP,
+    _socket = CFSocketCreate(kCFAllocatorDefault, addressFamily, SOCK_STREAM, IPPROTO_TCP,
                              kCFSocketConnectCallBack, TCPServerConnectCallBack, &CTX);
-
-    //设置地址
-    struct sockaddr_in addr;
-    memset(&addr, 0, sizeof(addr));
-    addr.sin_len = sizeof(addr);
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(tcpPort);
-    addr.sin_addr.s_addr = inet_addr([_hostAddress UTF8String]);
-
-    CFDataRef address = CFDataCreate(kCFAllocatorDefault, (UInt8 *)&addr, sizeof(addr));
-
+    
     //执行连接
-    CFSocketConnectToAddress(_socket, address, 3);
-    CFRelease(address);
+    CFSocketConnectToAddress(_socket, (__bridge CFDataRef)addr, 3);
     CFRunLoopRef cfrl = CFRunLoopGetCurrent();  // 获取当前运行循环
     CFRunLoopSourceRef source =
-        CFSocketCreateRunLoopSource(kCFAllocatorDefault, _socket, _connectCount);  //定义循环对象
+    CFSocketCreateRunLoopSource(kCFAllocatorDefault, _socket, _connectCount);  //定义循环对象
     CFRunLoopAddSource(cfrl, source, kCFRunLoopDefaultMode);  //将循环对象加入当前循环中
     CFRelease(source);
 }
+
 
 /**
  * connect回调函数

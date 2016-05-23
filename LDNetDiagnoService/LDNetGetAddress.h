@@ -34,13 +34,13 @@ typedef enum {
 
 
 /*!
- * 通过hostname获取ip列表
+ * 通过域名获取服务器DNS地址
  */
-+ (NSArray *)getIPWithHostName:(NSString *)hostName;
++ (NSArray *)getDNSsWithDormain:(NSString *)hostName;
 
 
 /*!
- * 获取当前网络DNS服务器地址
+ * 获取本地网络的DNS地址
  */
 + (NSArray *)outPutDNSServers;
 
@@ -49,5 +49,10 @@ typedef enum {
  * 获取当前网络类型
  */
 + (NETWORK_TYPE)getNetworkTypeFromStatusBar;
+
+/**
+ * 格式化IPV6地址
+ */
++(NSString *)formatIPV6Address:(struct in6_addr)ipv6Addr;
 
 @end

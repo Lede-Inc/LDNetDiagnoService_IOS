@@ -7,26 +7,58 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		507D0B1A1B71F08300C022DD /* LDNetGetAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 507D0B191B71F08300C022DD /* LDNetGetAddress.m */; };
-		507D0B1D1B71FE1900C022DD /* LDNetConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 507D0B1C1B71FE1900C022DD /* LDNetConnect.m */; };
+		2942AC941CEC3C650028B3C7 /* libLDNetDiagnoService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2942AC8A1CEC3C650028B3C7 /* libLDNetDiagnoService.framework */; };
+		2942AC9B1CEC3C650028B3C7 /* libLDNetDiagnoServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2942AC9A1CEC3C650028B3C7 /* libLDNetDiagnoServiceTests.m */; };
+		2942AC9F1CEC3C650028B3C7 /* libLDNetDiagnoService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2942AC8A1CEC3C650028B3C7 /* libLDNetDiagnoService.framework */; };
+		2942ACA81CEC3CC70028B3C7 /* LDNetDiagnoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF70C1A012630001CBB3E /* LDNetDiagnoService.m */; };
+		2942ACA91CEC3CC70028B3C7 /* LDNetPing.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF70E1A012630001CBB3E /* LDNetPing.m */; };
+		2942ACAA1CEC3CC70028B3C7 /* LDNetTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7101A012630001CBB3E /* LDNetTimer.m */; };
+		2942ACAB1CEC3CC70028B3C7 /* LDNetTraceRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7121A012630001CBB3E /* LDNetTraceRoute.m */; };
+		2942ACAC1CEC3CC70028B3C7 /* LDNetConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 507D0B1C1B71FE1900C022DD /* LDNetConnect.m */; };
+		2942ACAD1CEC3CC70028B3C7 /* LDSimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7141A012630001CBB3E /* LDSimplePing.m */; };
+		2942ACAE1CEC3CC70028B3C7 /* LDNetGetAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 507D0B191B71F08300C022DD /* LDNetGetAddress.m */; };
+		2942ACAF1CEC3CD40028B3C7 /* LDNetDiagnoService.h in Headers */ = {isa = PBXBuildFile; fileRef = 629AF70B1A012630001CBB3E /* LDNetDiagnoService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2942ACB01CEC3CD40028B3C7 /* LDNetPing.h in Headers */ = {isa = PBXBuildFile; fileRef = 629AF70D1A012630001CBB3E /* LDNetPing.h */; };
+		2942ACB11CEC3CD40028B3C7 /* LDNetTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 629AF70F1A012630001CBB3E /* LDNetTimer.h */; };
+		2942ACB21CEC3CD40028B3C7 /* LDNetTraceRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 629AF7111A012630001CBB3E /* LDNetTraceRoute.h */; };
+		2942ACB31CEC3CD40028B3C7 /* LDNetConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = 507D0B1B1B71FE1900C022DD /* LDNetConnect.h */; };
+		2942ACB41CEC3CD40028B3C7 /* LDSimplePing.h in Headers */ = {isa = PBXBuildFile; fileRef = 629AF7131A012630001CBB3E /* LDSimplePing.h */; };
+		2942ACB51CEC3CD40028B3C7 /* LDNetGetAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 507D0B181B71F08300C022DD /* LDNetGetAddress.h */; };
+		2942ACB61CEC3CD40028B3C7 /* Route.h in Headers */ = {isa = PBXBuildFile; fileRef = 620760621B74C27C00761E87 /* Route.h */; };
 		50C40A001B736B6D00C0D877 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C409FF1B736B6D00C0D877 /* libresolv.dylib */; };
 		623DA6B61A0723C4002351F7 /* LDNetDiagnoService.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */; };
-		629AF6E71A0125E5001CBB3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E61A0125E5001CBB3E /* main.m */; };
-		629AF6EA1A0125E5001CBB3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E91A0125E5001CBB3E /* AppDelegate.m */; };
-		629AF6ED1A0125E5001CBB3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6EC1A0125E5001CBB3E /* ViewController.m */; };
-		629AF6F01A0125E5001CBB3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 629AF6EE1A0125E5001CBB3E /* Main.storyboard */; };
 		629AF6F21A0125E5001CBB3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 629AF6F11A0125E5001CBB3E /* Images.xcassets */; };
 		629AF6F51A0125E5001CBB3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 629AF6F31A0125E5001CBB3E /* LaunchScreen.xib */; };
 		629AF7011A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7001A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.m */; };
-		629AF7151A012630001CBB3E /* LDNetDiagnoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF70C1A012630001CBB3E /* LDNetDiagnoService.m */; };
-		629AF7161A012630001CBB3E /* LDNetPing.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF70E1A012630001CBB3E /* LDNetPing.m */; };
-		629AF7171A012630001CBB3E /* LDNetTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7101A012630001CBB3E /* LDNetTimer.m */; };
-		629AF7181A012630001CBB3E /* LDNetTraceRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7121A012630001CBB3E /* LDNetTraceRoute.m */; };
-		629AF7191A012630001CBB3E /* LDSimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7141A012630001CBB3E /* LDSimplePing.m */; };
 		629AF71B1A012644001CBB3E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629AF71A1A012644001CBB3E /* CoreTelephony.framework */; };
+		B0535F411CF2E9F100A1E7D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E91A0125E5001CBB3E /* AppDelegate.m */; };
+		B0535F421CF2E9F100A1E7D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6EC1A0125E5001CBB3E /* ViewController.m */; };
+		B0535F431CF2E9F100A1E7D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E61A0125E5001CBB3E /* main.m */; };
+		B0535F8D1CF2F07800A1E7D6 /* libLDNetDiagnoService.h in Headers */ = {isa = PBXBuildFile; fileRef = B0535F8C1CF2F07800A1E7D6 /* libLDNetDiagnoService.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2942AC951CEC3C650028B3C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 629AF6D91A0125E5001CBB3E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2942AC891CEC3C650028B3C7;
+			remoteInfo = libLDNetDiagnoService;
+		};
+		2942AC971CEC3C650028B3C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 629AF6D91A0125E5001CBB3E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 629AF6E01A0125E5001CBB3E;
+			remoteInfo = LDNetDiagnoServiceDemo;
+		};
+		2942AC9D1CEC3C650028B3C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 629AF6D91A0125E5001CBB3E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2942AC891CEC3C650028B3C7;
+			remoteInfo = libLDNetDiagnoService;
+		};
 		629AF6FB1A0125E5001CBB3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 629AF6D91A0125E5001CBB3E /* Project object */;
@@ -36,7 +68,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2942ACA61CEC3C650028B3C7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2942AC8A1CEC3C650028B3C7 /* libLDNetDiagnoService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libLDNetDiagnoService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2942AC8E1CEC3C650028B3C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2942AC931CEC3C650028B3C7 /* libLDNetDiagnoServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libLDNetDiagnoServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2942AC9A1CEC3C650028B3C7 /* libLDNetDiagnoServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libLDNetDiagnoServiceTests.m; sourceTree = "<group>"; };
+		2942AC9C1CEC3C650028B3C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		507D0B181B71F08300C022DD /* LDNetGetAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetGetAddress.h; sourceTree = "<group>"; };
 		507D0B191B71F08300C022DD /* LDNetGetAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetGetAddress.m; sourceTree = "<group>"; };
 		507D0B1B1B71FE1900C022DD /* LDNetConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetConnect.h; sourceTree = "<group>"; };
@@ -51,7 +101,6 @@
 		629AF6E91A0125E5001CBB3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		629AF6EB1A0125E5001CBB3E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		629AF6EC1A0125E5001CBB3E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		629AF6EF1A0125E5001CBB3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		629AF6F11A0125E5001CBB3E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		629AF6F41A0125E5001CBB3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		629AF6FA1A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LDNetDiagnoServiceDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,15 +117,32 @@
 		629AF7131A012630001CBB3E /* LDSimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSimplePing.h; sourceTree = "<group>"; };
 		629AF7141A012630001CBB3E /* LDSimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSimplePing.m; sourceTree = "<group>"; };
 		629AF71A1A012644001CBB3E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		B0535F8C1CF2F07800A1E7D6 /* libLDNetDiagnoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libLDNetDiagnoService.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2942AC861CEC3C650028B3C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2942AC901CEC3C650028B3C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2942AC941CEC3C650028B3C7 /* libLDNetDiagnoService.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		629AF6DE1A0125E5001CBB3E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				50C40A001B736B6D00C0D877 /* libresolv.dylib in Frameworks */,
 				629AF71B1A012644001CBB3E /* CoreTelephony.framework in Frameworks */,
+				2942AC9F1CEC3C650028B3C7 /* libLDNetDiagnoService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +156,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2942AC8B1CEC3C650028B3C7 /* libLDNetDiagnoService */ = {
+			isa = PBXGroup;
+			children = (
+				B0535F8C1CF2F07800A1E7D6 /* libLDNetDiagnoService.h */,
+				2942AC8E1CEC3C650028B3C7 /* Info.plist */,
+			);
+			path = libLDNetDiagnoService;
+			sourceTree = "<group>";
+		};
+		2942AC991CEC3C650028B3C7 /* libLDNetDiagnoServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				2942AC9A1CEC3C650028B3C7 /* libLDNetDiagnoServiceTests.m */,
+				2942AC9C1CEC3C650028B3C7 /* Info.plist */,
+			);
+			path = libLDNetDiagnoServiceTests;
+			sourceTree = "<group>";
+		};
 		629AF6D81A0125E5001CBB3E = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +183,8 @@
 				629AF70A1A012630001CBB3E /* LDNetDiagnoService */,
 				629AF6E31A0125E5001CBB3E /* LDNetDiagnoServiceDemo */,
 				629AF6FD1A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests */,
+				2942AC8B1CEC3C650028B3C7 /* libLDNetDiagnoService */,
+				2942AC991CEC3C650028B3C7 /* libLDNetDiagnoServiceTests */,
 				629AF6E21A0125E5001CBB3E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,6 +194,8 @@
 			children = (
 				629AF6E11A0125E5001CBB3E /* LDNetDiagnoServiceDemo.app */,
 				629AF6FA1A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.xctest */,
+				2942AC8A1CEC3C650028B3C7 /* libLDNetDiagnoService.framework */,
+				2942AC931CEC3C650028B3C7 /* libLDNetDiagnoServiceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,7 +207,6 @@
 				629AF6E91A0125E5001CBB3E /* AppDelegate.m */,
 				629AF6EB1A0125E5001CBB3E /* ViewController.h */,
 				629AF6EC1A0125E5001CBB3E /* ViewController.m */,
-				629AF6EE1A0125E5001CBB3E /* Main.storyboard */,
 				629AF6F11A0125E5001CBB3E /* Images.xcassets */,
 				629AF6F31A0125E5001CBB3E /* LaunchScreen.xib */,
 				629AF6E41A0125E5001CBB3E /* Supporting Files */,
@@ -177,7 +264,63 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		2942AC871CEC3C650028B3C7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2942ACAF1CEC3CD40028B3C7 /* LDNetDiagnoService.h in Headers */,
+				B0535F8D1CF2F07800A1E7D6 /* libLDNetDiagnoService.h in Headers */,
+				2942ACB01CEC3CD40028B3C7 /* LDNetPing.h in Headers */,
+				2942ACB11CEC3CD40028B3C7 /* LDNetTimer.h in Headers */,
+				2942ACB21CEC3CD40028B3C7 /* LDNetTraceRoute.h in Headers */,
+				2942ACB31CEC3CD40028B3C7 /* LDNetConnect.h in Headers */,
+				2942ACB41CEC3CD40028B3C7 /* LDSimplePing.h in Headers */,
+				2942ACB51CEC3CD40028B3C7 /* LDNetGetAddress.h in Headers */,
+				2942ACB61CEC3CD40028B3C7 /* Route.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		2942AC891CEC3C650028B3C7 /* libLDNetDiagnoService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2942ACA51CEC3C650028B3C7 /* Build configuration list for PBXNativeTarget "libLDNetDiagnoService" */;
+			buildPhases = (
+				2942AC851CEC3C650028B3C7 /* Sources */,
+				2942AC861CEC3C650028B3C7 /* Frameworks */,
+				2942AC871CEC3C650028B3C7 /* Headers */,
+				2942AC881CEC3C650028B3C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libLDNetDiagnoService;
+			productName = libLDNetDiagnoService;
+			productReference = 2942AC8A1CEC3C650028B3C7 /* libLDNetDiagnoService.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2942AC921CEC3C650028B3C7 /* libLDNetDiagnoServiceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2942ACA71CEC3C650028B3C7 /* Build configuration list for PBXNativeTarget "libLDNetDiagnoServiceTests" */;
+			buildPhases = (
+				2942AC8F1CEC3C650028B3C7 /* Sources */,
+				2942AC901CEC3C650028B3C7 /* Frameworks */,
+				2942AC911CEC3C650028B3C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2942AC961CEC3C650028B3C7 /* PBXTargetDependency */,
+				2942AC981CEC3C650028B3C7 /* PBXTargetDependency */,
+			);
+			name = libLDNetDiagnoServiceTests;
+			productName = libLDNetDiagnoServiceTests;
+			productReference = 2942AC931CEC3C650028B3C7 /* libLDNetDiagnoServiceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		629AF6E01A0125E5001CBB3E /* LDNetDiagnoServiceDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 629AF7041A0125E5001CBB3E /* Build configuration list for PBXNativeTarget "LDNetDiagnoServiceDemo" */;
@@ -185,10 +328,12 @@
 				629AF6DD1A0125E5001CBB3E /* Sources */,
 				629AF6DE1A0125E5001CBB3E /* Frameworks */,
 				629AF6DF1A0125E5001CBB3E /* Resources */,
+				2942ACA61CEC3C650028B3C7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2942AC9E1CEC3C650028B3C7 /* PBXTargetDependency */,
 			);
 			name = LDNetDiagnoServiceDemo;
 			productName = LDNetDiagnoServiceDemo;
@@ -219,9 +364,17 @@
 		629AF6D91A0125E5001CBB3E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "庞辉";
 				TargetAttributes = {
+					2942AC891CEC3C650028B3C7 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 35B2KE884X;
+					};
+					2942AC921CEC3C650028B3C7 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 629AF6E01A0125E5001CBB3E;
+					};
 					629AF6E01A0125E5001CBB3E = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = 35B2KE884X;
@@ -233,7 +386,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 629AF6DC1A0125E5001CBB3E /* Build configuration list for PBXProject "LDNetDiagnoServiceDemo" */;
+			buildConfigurationList = 629AF6DC1A0125E5001CBB3E /* Build configuration list for PBXProject "LDNetDiagnoService" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -248,17 +401,32 @@
 			targets = (
 				629AF6E01A0125E5001CBB3E /* LDNetDiagnoServiceDemo */,
 				629AF6F91A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests */,
+				2942AC891CEC3C650028B3C7 /* libLDNetDiagnoService */,
+				2942AC921CEC3C650028B3C7 /* libLDNetDiagnoServiceTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2942AC881CEC3C650028B3C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2942AC911CEC3C650028B3C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		629AF6DF1A0125E5001CBB3E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				623DA6B61A0723C4002351F7 /* LDNetDiagnoService.podspec in Resources */,
-				629AF6F01A0125E5001CBB3E /* Main.storyboard in Resources */,
 				629AF6F51A0125E5001CBB3E /* LaunchScreen.xib in Resources */,
 				629AF6F21A0125E5001CBB3E /* Images.xcassets in Resources */,
 			);
@@ -274,20 +442,35 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2942AC851CEC3C650028B3C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2942ACA81CEC3CC70028B3C7 /* LDNetDiagnoService.m in Sources */,
+				2942ACA91CEC3CC70028B3C7 /* LDNetPing.m in Sources */,
+				2942ACAA1CEC3CC70028B3C7 /* LDNetTimer.m in Sources */,
+				2942ACAB1CEC3CC70028B3C7 /* LDNetTraceRoute.m in Sources */,
+				2942ACAC1CEC3CC70028B3C7 /* LDNetConnect.m in Sources */,
+				2942ACAD1CEC3CC70028B3C7 /* LDSimplePing.m in Sources */,
+				2942ACAE1CEC3CC70028B3C7 /* LDNetGetAddress.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2942AC8F1CEC3C650028B3C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2942AC9B1CEC3C650028B3C7 /* libLDNetDiagnoServiceTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		629AF6DD1A0125E5001CBB3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				507D0B1A1B71F08300C022DD /* LDNetGetAddress.m in Sources */,
-				629AF6ED1A0125E5001CBB3E /* ViewController.m in Sources */,
-				629AF7191A012630001CBB3E /* LDSimplePing.m in Sources */,
-				629AF7151A012630001CBB3E /* LDNetDiagnoService.m in Sources */,
-				629AF6EA1A0125E5001CBB3E /* AppDelegate.m in Sources */,
-				629AF7161A012630001CBB3E /* LDNetPing.m in Sources */,
-				629AF6E71A0125E5001CBB3E /* main.m in Sources */,
-				629AF7171A012630001CBB3E /* LDNetTimer.m in Sources */,
-				507D0B1D1B71FE1900C022DD /* LDNetConnect.m in Sources */,
-				629AF7181A012630001CBB3E /* LDNetTraceRoute.m in Sources */,
+				B0535F411CF2E9F100A1E7D6 /* AppDelegate.m in Sources */,
+				B0535F421CF2E9F100A1E7D6 /* ViewController.m in Sources */,
+				B0535F431CF2E9F100A1E7D6 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +485,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2942AC961CEC3C650028B3C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2942AC891CEC3C650028B3C7 /* libLDNetDiagnoService */;
+			targetProxy = 2942AC951CEC3C650028B3C7 /* PBXContainerItemProxy */;
+		};
+		2942AC981CEC3C650028B3C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 629AF6E01A0125E5001CBB3E /* LDNetDiagnoServiceDemo */;
+			targetProxy = 2942AC971CEC3C650028B3C7 /* PBXContainerItemProxy */;
+		};
+		2942AC9E1CEC3C650028B3C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2942AC891CEC3C650028B3C7 /* libLDNetDiagnoService */;
+			targetProxy = 2942AC9D1CEC3C650028B3C7 /* PBXContainerItemProxy */;
+		};
 		629AF6FC1A0125E5001CBB3E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 629AF6E01A0125E5001CBB3E /* LDNetDiagnoServiceDemo */;
@@ -310,14 +508,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		629AF6EE1A0125E5001CBB3E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				629AF6EF1A0125E5001CBB3E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		629AF6F31A0125E5001CBB3E /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -329,6 +519,92 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2942ACA11CEC3C650028B3C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = libLDNetDiagnoService/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netease.libLDNetDiagnoService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2942ACA21CEC3C650028B3C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = libLDNetDiagnoService/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netease.libLDNetDiagnoService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2942ACA31CEC3C650028B3C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = libLDNetDiagnoServiceTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.netease.libLDNetDiagnoServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LDNetDiagnoServiceDemo.app/LDNetDiagnoServiceDemo";
+			};
+			name = Debug;
+		};
+		2942ACA41CEC3C650028B3C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = libLDNetDiagnoServiceTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.netease.libLDNetDiagnoServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LDNetDiagnoServiceDemo.app/LDNetDiagnoServiceDemo";
+			};
+			name = Release;
+		};
 		629AF7021A0125E5001CBB3E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -350,6 +626,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -364,7 +641,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -401,7 +678,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -413,11 +690,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.netease.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -427,11 +706,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.netease.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -453,6 +734,7 @@
 				);
 				INFOPLIST_FILE = LDNetDiagnoServiceDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.netease.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LDNetDiagnoServiceDemo.app/LDNetDiagnoServiceDemo";
@@ -471,6 +753,7 @@
 				);
 				INFOPLIST_FILE = LDNetDiagnoServiceDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.netease.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LDNetDiagnoServiceDemo.app/LDNetDiagnoServiceDemo";
@@ -480,7 +763,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		629AF6DC1A0125E5001CBB3E /* Build configuration list for PBXProject "LDNetDiagnoServiceDemo" */ = {
+		2942ACA51CEC3C650028B3C7 /* Build configuration list for PBXNativeTarget "libLDNetDiagnoService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2942ACA11CEC3C650028B3C7 /* Debug */,
+				2942ACA21CEC3C650028B3C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2942ACA71CEC3C650028B3C7 /* Build configuration list for PBXNativeTarget "libLDNetDiagnoServiceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2942ACA31CEC3C650028B3C7 /* Debug */,
+				2942ACA41CEC3C650028B3C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		629AF6DC1A0125E5001CBB3E /* Build configuration list for PBXProject "LDNetDiagnoService" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				629AF7021A0125E5001CBB3E /* Debug */,

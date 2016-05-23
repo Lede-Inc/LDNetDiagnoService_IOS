@@ -54,7 +54,7 @@
  */
 - (void)runWithHostName:(NSString *)hostName normalPing:(BOOL)normalPing{
     assert(self.pinger == nil);
-    self.pinger = [LDSimplePing simplePingWithHostName:hostName];
+    self.pinger = [[LDSimplePing alloc] initWithHostName:hostName];
     assert(self.pinger != nil);
     
     _isLargePing = !normalPing;
@@ -133,7 +133,7 @@
 #pragma unused(pinger)
     assert(pinger == self.pinger);
     assert(address != nil);
-    _hostAddress = DisplayAddressForAddress(address);
+    _hostAddress = [self DisplayAddressForAddress:address];
     NSLog(@"pinging %@", _hostAddress);
 
     // Send the first ping straight away.
@@ -168,32 +168,26 @@
  * PingDelegate: 发送ping数据成功
  *
  */
-- (void)simplePing:(LDSimplePing *)pinger didSendPacket:(NSData *)packet
+- (void)simplePing:(LDSimplePing *)pinger didSendPacket:(NSData *)packet sequenceNumber:(uint16_t)sequenceNumber;
 {
 #pragma unused(pinger)
     assert(pinger == self.pinger);
 #pragma unused(packet)
-    NSLog(@"#%u sent success",
-          (unsigned int)OSSwapBigToHostInt16(((const ICMPHeader *)[packet bytes])->sequenceNumber));
+    NSLog(@"#%u sent success",sequenceNumber);
 }
 
 
 /*
  * PingDelegate: 发送ping数据失败
- *
  */
-- (void)simplePing:(LDSimplePing *)pinger
-    didFailToSendPacket:(NSData *)packet
-                  error:(NSError *)error
+- (void)simplePing:(LDSimplePing *)pinger didFailToSendPacket:(NSData *)packet sequenceNumber:(uint16_t)sequenceNumber error:(NSError *)error
 {
 #pragma unused(pinger)
     assert(pinger == self.pinger);
 #pragma unused(packet)
 #pragma unused(error)
     NSString *sendFailLog =
-        [NSString stringWithFormat:@"#%u send failed: %@",
-                                   (unsigned int)OSSwapBigToHostInt16(
-                                       ((const ICMPHeader *)[packet bytes])->sequenceNumber),
+        [NSString stringWithFormat:@"#%u send failed: %@",sequenceNumber,
                                    [self shortErrorFromError:error]];
     //记录
     if (self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]) {
@@ -206,20 +200,20 @@
 
 /*
  * PingDelegate: 成功接收到PingResponse数据
- *
  */
-- (void)simplePing:(LDSimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet
+- (void)simplePing:(LDSimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet sequenceNumber:(uint16_t)sequenceNumber
 {
 #pragma unused(pinger)
     assert(pinger == self.pinger);
 #pragma unused(packet)
-
+    //由于IPV6在IPheader中不返回TTL数据，所以这里不返回TTL，改为返回Type
+    //http://blog.sina.com.cn/s/blog_6a1837e901012ds8.html
+    NSString *icmpReplyType = [NSString stringWithFormat:@"%@", [LDSimplePing icmpInPacket:packet]->type == 129 ? @"ICMPv6TypeEchoReply" : @"ICMPv4TypeEchoReply"];
     NSString *successLog = [NSString
-        stringWithFormat:@"%lu bytes from %@ icmp_seq=#%u ttl=%d time=%ldms",
+        stringWithFormat:@"%lu bytes from %@ icmp_seq=#%u type=%@ time=%ldms",
                          (unsigned long)[packet length], _hostAddress,
-                         (unsigned int)OSSwapBigToHostInt16(
-                             [LDSimplePing icmpInPacket:packet]->sequenceNumber),
-                         (unsigned int)([LDSimplePing ipHeaderInPacket:packet]->timeToLive),
+                         sequenceNumber,
+                         icmpReplyType,
                          [LDNetTimer computeDurationSince:_startTime] / 1000];
     //记录ping成功的数据
     if (self.delegate && [self.delegate respondsToSelector:@selector(appendPingLog:)]) {
@@ -232,7 +226,6 @@
 
 /*
  * PingDelegate: 接收到错误的pingResponse数据
- *
  */
 - (void)simplePing:(LDSimplePing *)pinger didReceiveUnexpectedPacket:(NSData *)packet
 {
@@ -260,19 +253,18 @@
     [self sendPing];
 }
 
-
 /**
  * 将ping接收的数据转换成ip地址
  * @param address 接受的ping数据
  */
-NSString *DisplayAddressForAddress(NSData *address)
+-(NSString *)DisplayAddressForAddress:(NSData *)address
 {
     int err;
     NSString *result;
     char hostStr[NI_MAXHOST];
-
+    
     result = nil;
-
+    
     if (address != nil) {
         err = getnameinfo([address bytes], (socklen_t)[address length], hostStr, sizeof(hostStr),
                           NULL, 0, NI_NUMERICHOST);
@@ -281,7 +273,7 @@ NSString *DisplayAddressForAddress(NSData *address)
             assert(result != nil);
         }
     }
-
+    
     return result;
 }
 
@@ -294,13 +286,13 @@ NSString *DisplayAddressForAddress(NSData *address)
     NSNumber *failureNum;
     int failure;
     const char *failureStr;
-
+    
     assert(error != nil);
-
+    
     result = nil;
-
+    
     // Handle DNS errors as a special case.
-
+    
     if ([[error domain] isEqual:(NSString *)kCFErrorDomainCFNetwork] &&
         ([error code] == kCFHostErrorUnknown)) {
         failureNum = [[error userInfo] objectForKey:(id)kCFGetAddrInfoFailureKey];
@@ -315,9 +307,9 @@ NSString *DisplayAddressForAddress(NSData *address)
             }
         }
     }
-
+    
     // Otherwise try various properties of the error object.
-
+    
     if (result == nil) {
         result = [error localizedFailureReason];
     }
@@ -330,5 +322,4 @@ NSString *DisplayAddressForAddress(NSData *address)
     assert(result != nil);
     return result;
 }
-
 @end

@@ -108,7 +108,7 @@ static NSString *const kCheckOutIPURL = @"";
     }
 
     if (_isRunning) {
-        //[self recordOutIPInfo];
+//        [self recordOutIPInfo];
     }
 
     if (_isRunning) {
@@ -279,7 +279,7 @@ static NSString *const kCheckOutIPURL = @"";
 
     // host地址IP列表
     long time_start = [LDNetTimer getMicroSeconds];
-    _hostAddress = [NSArray arrayWithArray:[LDNetGetAddress getIPWithHostName:_dormain]];
+    _hostAddress = [NSArray arrayWithArray:[LDNetGetAddress getDNSsWithDormain:_dormain]];
     long time_duration = [LDNetTimer computeDurationSince:time_start] / 1000;
     if ([_hostAddress count] == 0) {
         [self recordStepInfo:[NSString stringWithFormat:@"DNS解析结果: 解析失败"]];
@@ -342,8 +342,10 @@ static NSString *const kCheckOutIPURL = @"";
     }
 
     //不管服务器解析DNS是否可达，均需要ping指定ip地址
-    //[pingAdd addObject:kPingOpenServerIP];
-    //[pingInfo addObject:@"开放服务器"];
+    if([_localIp rangeOfString:@":"].location == NSNotFound){
+        [pingAdd addObject:kPingOpenServerIP];
+        [pingInfo addObject:@"开放服务器"];
+    }
 
     [self recordStepInfo:@"\n开始ping..."];
     _netPinger = [[LDNetPing alloc] init];
@@ -353,7 +355,7 @@ static NSString *const kCheckOutIPURL = @"";
                                                         [pingInfo objectAtIndex:i],
                                                         [pingAdd objectAtIndex:i]]];
         if ([[pingAdd objectAtIndex:i] isEqualToString:kPingOpenServerIP]) {
-            [_netPinger runWithHostName:[pingAdd objectAtIndex:i] normalPing:NO];
+            [_netPinger runWithHostName:[pingAdd objectAtIndex:i] normalPing:YES];
         } else {
             [_netPinger runWithHostName:[pingAdd objectAtIndex:i] normalPing:YES];
         }
