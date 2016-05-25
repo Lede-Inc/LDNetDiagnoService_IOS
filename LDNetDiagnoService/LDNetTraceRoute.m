@@ -62,7 +62,7 @@
         nativeAddr4.sin_len = sizeof(nativeAddr4);
         nativeAddr4.sin_family = AF_INET;
         nativeAddr4.sin_port = htons(udpPort);
-        nativeAddr4.sin_addr.s_addr = inet_addr([ipAddr0 UTF8String]);
+        inet_pton(AF_INET, ipAddr0.UTF8String, &nativeAddr4.sin_addr.s_addr);
         addrData = [NSData dataWithBytes:&nativeAddr4 length:sizeof(nativeAddr4)];
     } else {
         isIPV6 = YES;

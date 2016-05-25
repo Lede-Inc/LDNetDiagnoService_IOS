@@ -52,8 +52,7 @@
                 //如果是IPV4地址，直接转化
                 if (temp_addr->ifa_addr->sa_family == AF_INET){
                     // Get NSString from C String
-                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
-//                    if (address && ![address isEqualToString:@""] && ![address.uppercaseString hasPrefix:@"FE80"]) break;
+                    address = [self formatIPV4Address:((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr];
                 }
                 
                 //如果是IPV6地址
@@ -146,8 +145,7 @@
                 if (((struct sockaddr_in *)sa_tab[RTAX_DST])->sin_addr.s_addr == 0) {
                     in_addr_t addr =
                         ((struct sockaddr_in *)(sa_tab[RTAX_GATEWAY]))->sin_addr.s_addr;
-                    address =
-                        [NSString stringWithFormat:@"%s", inet_ntoa(*((struct in_addr *)&addr))];
+                    address = [self formatIPV4Address:*((struct in_addr *)&addr)];
                     NSLog(@"IPV4address%@", address);
                     break;
                 }
@@ -356,6 +354,20 @@
     char srcStr[INET6_ADDRSTRLEN];
     memcpy(srcStr, &ipv6Addr, sizeof(struct in6_addr));
     if(inet_ntop(AF_INET6, srcStr, dstStr, INET6_ADDRSTRLEN) != NULL){
+        address = [NSString stringWithUTF8String:dstStr];
+    }
+    
+    return address;
+}
+
+
++(NSString *)formatIPV4Address:(struct in_addr)ipv4Addr{
+    NSString *address = nil;
+    
+    char dstStr[INET_ADDRSTRLEN];
+    char srcStr[INET_ADDRSTRLEN];
+    memcpy(srcStr, &ipv4Addr, sizeof(struct in_addr));
+    if(inet_ntop(AF_INET, srcStr, dstStr, INET_ADDRSTRLEN) != NULL){
         address = [NSString stringWithUTF8String:dstStr];
     }
     

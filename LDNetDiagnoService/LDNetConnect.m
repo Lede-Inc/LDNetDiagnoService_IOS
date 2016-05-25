@@ -80,7 +80,7 @@
         nativeAddr4.sin_len = sizeof(nativeAddr4);
         nativeAddr4.sin_family = AF_INET;
         nativeAddr4.sin_port = htons(tcpPort);
-        nativeAddr4.sin_addr.s_addr = inet_addr([_hostAddress UTF8String]);
+        inet_pton(AF_INET, _hostAddress.UTF8String, &nativeAddr4.sin_addr.s_addr);
         addrData = [NSData dataWithBytes:&nativeAddr4 length:sizeof(nativeAddr4)];
     } else {
         struct sockaddr_in6 nativeAddr6;
