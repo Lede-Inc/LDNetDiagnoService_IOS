@@ -23,7 +23,7 @@
 在项目工程的Podfile文件中加载LDNetDiagnoService库：
 
 ```
-pod 'LDNetDiagnoService' :git =>  'https://github.com/Lede-Inc/LDNetDiagnoService_IOS.git'
+pod 'LDNetDiagnoService', :git =>  'https://github.com/Lede-Inc/LDNetDiagnoService_IOS.git'
 ```
 
 
