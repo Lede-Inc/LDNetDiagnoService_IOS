@@ -19,7 +19,11 @@
 #import <netinet/in.h>
 
 #if TARGET_IPHONE_SIMULATOR
-#include <net/route.h>
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED < 110000 //iOS11，用数字不用宏定义的原因是低版本XCode不支持110000的宏定义
+        #include <net/route.h>
+    #else
+        #include "Route.h"
+    #endif
 #else
 #include "Route.h"
 #endif /*the very same from google-code*/
@@ -331,19 +335,43 @@
  */
 + (NETWORK_TYPE)getNetworkTypeFromStatusBar
 {
-    NSArray *subviews = [[[[UIApplication sharedApplication] valueForKey:@"statusBar"]
-        valueForKey:@"foregroundView"] subviews];
-    NSNumber *dataNetworkItemView = nil;
-    for (id subview in subviews) {
-        if ([subview isKindOfClass:[NSClassFromString(@"UIStatusBarDataNetworkItemView") class]]) {
-            dataNetworkItemView = subview;
-            break;
-        }
-    }
+    UIApplication *app = [UIApplication sharedApplication];
     NETWORK_TYPE nettype = NETWORK_TYPE_NONE;
-    NSNumber *num = [dataNetworkItemView valueForKey:@"dataNetworkType"];
-    nettype = [num intValue];
-    return nettype;
+    //iOS11
+    if ([[app valueForKeyPath:@"_statusBar"] isKindOfClass:NSClassFromString(@"UIStatusBar_Modern")]) {
+        NSArray *views = [[[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+        for (UIView *view in views) {
+            for (id child in view.subviews) {
+                //wifi
+                if ([child isKindOfClass:NSClassFromString(@"_UIStatusBarWifiSignalView")]) {
+                    nettype = NETWORK_TYPE_WIFI;
+                }
+                //2G 3G 4G
+                if ([child isKindOfClass:NSClassFromString(@"_UIStatusBarStringView")]) {
+                    if ([[child valueForKey:@"_originalText"] containsString:@"2G"]) {
+                        nettype = NETWORK_TYPE_2G;
+                    } else if ([[child valueForKey:@"_originalText"] containsString:@"3G"]) {
+                        nettype = NETWORK_TYPE_3G;
+                    } else if ([[child valueForKey:@"_originalText"] containsString:@"4G"]) {
+                        nettype = NETWORK_TYPE_4G;
+                    }
+                }
+            }
+        }
+    } else {
+        NSArray *subviews = [[[[UIApplication sharedApplication] valueForKey:@"statusBar"]
+                              valueForKey:@"foregroundView"] subviews];
+        NSNumber *dataNetworkItemView = nil;
+        for (id subview in subviews) {
+            if ([subview isKindOfClass:[NSClassFromString(@"UIStatusBarDataNetworkItemView") class]]) {
+                dataNetworkItemView = subview;
+                break;
+            }
+        }
+        NSNumber *num = [dataNetworkItemView valueForKey:@"dataNetworkType"];
+        nettype = [num intValue];
+    }
+   return nettype;
 }
 
 
