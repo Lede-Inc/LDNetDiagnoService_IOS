@@ -23,7 +23,7 @@
 在项目工程的Podfile文件中加载LDNetDiagnoService库：
 
 ```
-pod 'LDNetDiagnoService' :git =>  'https://github.com/Lede-Inc/LDNetDiagnoService_IOS.git'
+pod 'LDNetDiagnoService', :git =>  'https://github.com/Lede-Inc/LDNetDiagnoService_IOS.git'
 ```
 
 
@@ -103,7 +103,7 @@ _netDiagnoService.delegate = self;
 
 ## 如何通过textview监控日志输出
 ---------------------------------
-* 如果产品需要通过textview缄口日志输出过程，可以参考demo例子中的ViewController的代码；
+* 如果产品需要通过textview接口日志输出过程，可以参考demo例子中的ViewController的代码；
 
 * 在网络诊断结束的时候，将日志文件上传；
 
