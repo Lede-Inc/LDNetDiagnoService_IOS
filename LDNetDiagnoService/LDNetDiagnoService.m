@@ -14,8 +14,9 @@
 #import "LDNetGetAddress.h"
 #import "LDNetTimer.h"
 #import "LDNetConnect.h"
+#import "TRTraceroute.h"
 
-static NSString *const kPingOpenServerIP = @"";
+static NSString *const kPingOpenServerIP = @"www.apple.com";
 static NSString *const kCheckOutIPURL = @"";
 
 @interface LDNetDiagnoService () <LDNetPingDelegate, LDNetTraceRouteDelegate,
@@ -42,6 +43,7 @@ static NSString *const kCheckOutIPURL = @"";
     LDNetPing *_netPinger;
     LDNetTraceRoute *_traceRouter;
     LDNetConnect *_netConnect;
+    TRTraceroute *_trTraceroute;
 }
 
 @end
@@ -92,7 +94,7 @@ static NSString *const kCheckOutIPURL = @"";
 
     _isRunning = YES;
     [_logInfo setString:@""];
-    [self recordStepInfo:@"开始诊断..."];
+    [self recordStepInfo:@"\n-----------------------\n开始诊断..."];
     [self recordCurrentAppVersion];
     [self recordLocalNetEnvironment];
 
@@ -133,15 +135,17 @@ static NSString *const kCheckOutIPURL = @"";
     if (_isRunning) {
         //开始诊断traceRoute
         [self recordStepInfo:@"\n开始traceroute..."];
-        _traceRouter = [[LDNetTraceRoute alloc] initWithMaxTTL:TRACEROUTE_MAX_TTL
+        _traceRouter =  [[LDNetTraceRoute alloc] initWithMaxTTL:TRACEROUTE_MAX_TTL
                                                        timeout:TRACEROUTE_TIMEOUT
                                                    maxAttempts:TRACEROUTE_ATTEMPTS
                                                           port:TRACEROUTE_PORT];
+        __weak LDNetTraceRoute *traceRoute = _traceRouter;
         _traceRouter.delegate = self;
         if (_traceRouter) {
-            [NSThread detachNewThreadSelector:@selector(doTraceRoute:)
-                                     toTarget:_traceRouter
-                                   withObject:_dormain];
+            NSString* domain = _dormain;
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+                [traceRoute doTraceRoute:domain];
+            });
         }
     }
 }
@@ -167,7 +171,9 @@ static NSString *const kCheckOutIPURL = @"";
             [_traceRouter stopTrace];
             _traceRouter = nil;
         }
-
+        if(_trTraceroute !=nil){
+            [_trTraceroute stopTrace];
+        }
         _isRunning = NO;
     }
 }
@@ -345,6 +351,8 @@ static NSString *const kCheckOutIPURL = @"";
     if([_localIp rangeOfString:@":"].location == NSNotFound){
         [pingAdd addObject:kPingOpenServerIP];
         [pingInfo addObject:@"开放服务器"];
+        [pingAdd addObject:_dormain];
+        [pingInfo addObject:@"目标服务器"];
     }
 
     [self recordStepInfo:@"\n开始ping..."];
@@ -385,11 +393,34 @@ static NSString *const kCheckOutIPURL = @"";
 - (void)traceRouteDidEnd
 {
     _isRunning = NO;
-    [self recordStepInfo:@"\n网络诊断结束\n"];
     if (self.delegate && [self.delegate respondsToSelector:@selector(netDiagnosisDidEnd:)]) {
         [self.delegate netDiagnosisDidEnd:_logInfo];
     }
+    [self startTRTraceroute];
 }
+
+#pragma mark - onTRTraceroute
+-(void)startTRTraceroute{
+    __weak __typeof(self)weakSelf = self;
+    [weakSelf stopTRTraceroute];
+    [weakSelf recordStepInfo:@"\n------------------------\n开始第二种 TraceRoute"];
+    _trTraceroute = [TRTraceroute startTracerouteWithHost:[_hostAddress firstObject]
+                                    queue:dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0)
+                             stepCallback:^(TRTracerouteRecord *record) {
+                                 [weakSelf recordStepInfo:[record description]];
+                             } finish:^(NSArray<TRTracerouteRecord *> *results, BOOL succeed) {
+                                 [weakSelf recordStepInfo:succeed?@"> Traceroute成功 <":@"> Traceroute失败 <"];
+                                 [weakSelf recordStepInfo:@"\n网络诊断结束\n"];
+                             }];
+}
+
+-(void)stopTRTraceroute{
+    if(_trTraceroute){
+        [_trTraceroute stopTrace];
+    }
+    _trTraceroute = nil;
+}
+
 
 #pragma mark - connectDelegate
 - (void)appendSocketLog:(NSString *)socketLog
@@ -403,6 +434,7 @@ static NSString *const kCheckOutIPURL = @"";
         _connectSuccess = YES;
     }
 }
+
 
 
 #pragma mark - common method

@@ -130,8 +130,8 @@
         //每一步连续发送maxAttenpts报文
         icmp = false;
         NSMutableString *traceTTLLog = [[NSMutableString alloc] initWithCapacity:20];
-        [traceTTLLog appendFormat:@"%d\t", ttl];
-        NSString *hostAddress = @"***";
+        [traceTTLLog appendFormat:@"%-3d ", ttl];
+        NSString *hostAddress = @"***************";
         for (int try = 0; try < maxAttempts; try ++) {
             startTime = [LDNetTimer getMicroSeconds];
             //发送成功返回值等于发送消息的长度
@@ -139,7 +139,7 @@
             if (sentLen != sizeof(cmsg)) {
                 NSLog(@"Error sending to server: %d %d", errno, (int)sentLen);
                 error = true;
-                [traceTTLLog appendFormat:@"*\t"];
+                [traceTTLLog appendFormat:@"     *     |"];
             }
 
             long res = 0;
@@ -170,7 +170,7 @@
                     if (fromAddr.sa_family == AF_INET) {
                         char display[INET_ADDRSTRLEN] = {0};
                         inet_ntop(AF_INET, &((struct sockaddr_in *)&fromAddr)->sin_addr.s_addr, display, sizeof(display));
-                        hostAddress = [NSString stringWithFormat:@"%s", display];
+                        hostAddress = [NSString stringWithFormat:@"%-15s", display];
                     }
                     
                     else if (fromAddr.sa_family == AF_INET6) {
@@ -180,9 +180,9 @@
                     }
                     
                     if (try == 0) {
-                        [traceTTLLog appendFormat:@"%@\t\t", hostAddress];
+                        [traceTTLLog appendFormat:@"%-15s |", [hostAddress UTF8String]];
                     }
-                    [traceTTLLog appendFormat:@"%0.2fms\t", (float)delta / 1000];
+                    [traceTTLLog appendFormat:@" %6.2f ms |", (float)delta / 1000];
                 }
             } else {
                 timeoutTTL++;
@@ -205,12 +205,15 @@
         if (icmp) {
             [self.delegate appendRouteLog:traceTTLLog];
         } else {
+            /**
+             去掉这个限制 !!
             //如果连续三次接收不到icmp回显报文
-            if (timeoutTTL >= 4) {
+            if (timeoutTTL >= maxTTL) {
                 break;
             } else {
+             */
                 [self.delegate appendRouteLog:[NSString stringWithFormat:@"%d\t********\t", ttl]];
-            }
+            /*}*/
         }
         
         if ([hostAddress isEqualToString:ipAddr0]) {

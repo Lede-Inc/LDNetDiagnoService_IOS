@@ -145,20 +145,18 @@ static void TCPServerConnectCallBack(CFSocketRef socket, CFSocketCallBackType ty
         _sumTime += interval;
         NSLog(@"connect success %ld", (long)interval);
         _resultLog = [_resultLog
-            stringByAppendingString:[NSString stringWithFormat:@"%d's time=%ldms, ",
-                                                               _connectCount + 1, (long)interval]];
+                      stringByAppendingString:[NSString stringWithFormat:@"%d: time=%5ldms\n",_connectCount + 1, (long)interval]];
     } else {
         _sumTime = 99999;
         _resultLog =
-            [_resultLog stringByAppendingString:[NSString stringWithFormat:@"%d's time=TimeOut, ",
-                                                                           _connectCount + 1]];
+        [_resultLog stringByAppendingString:[NSString stringWithFormat:@"%d: time=TimeOut\n",_connectCount + 1]];
     }
     if (_connectCount == MAXCOUNT_CONNECT - 1) {
         if (_sumTime >= 99999) {
             _resultLog = [_resultLog substringToIndex:[_resultLog length] - 1];
         } else {
             _resultLog = [_resultLog
-                stringByAppendingString:[NSString stringWithFormat:@"average=%ldms",
+                stringByAppendingString:[NSString stringWithFormat:@"average=%5ldms",
                                                                    (long)(_sumTime / 4)]];
         }
         if (self.delegate && [self.delegate respondsToSelector:@selector(appendSocketLog:)]) {
