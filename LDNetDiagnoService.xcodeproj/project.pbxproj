@@ -25,12 +25,18 @@
 		2942ACB41CEC3CD40028B3C7 /* LDSimplePing.h in Headers */ = {isa = PBXBuildFile; fileRef = 629AF7131A012630001CBB3E /* LDSimplePing.h */; };
 		2942ACB51CEC3CD40028B3C7 /* LDNetGetAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 507D0B181B71F08300C022DD /* LDNetGetAddress.h */; };
 		2942ACB61CEC3CD40028B3C7 /* Route.h in Headers */ = {isa = PBXBuildFile; fileRef = 620760621B74C27C00761E87 /* Route.h */; };
-		50C40A001B736B6D00C0D877 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C409FF1B736B6D00C0D877 /* libresolv.dylib */; };
 		623DA6B61A0723C4002351F7 /* LDNetDiagnoService.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */; };
 		629AF6F21A0125E5001CBB3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 629AF6F11A0125E5001CBB3E /* Images.xcassets */; };
 		629AF6F51A0125E5001CBB3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 629AF6F31A0125E5001CBB3E /* LaunchScreen.xib */; };
 		629AF7011A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF7001A0125E5001CBB3E /* LDNetDiagnoServiceDemoTests.m */; };
 		629AF71B1A012644001CBB3E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629AF71A1A012644001CBB3E /* CoreTelephony.framework */; };
+		9BCB8BEA213684E400B658F0 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCB8BE9213684E400B658F0 /* libresolv.tbd */; };
+		9BCB8C0B213690D700B658F0 /* TRTracerouteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB8C05213690D700B658F0 /* TRTracerouteCommon.m */; };
+		9BCB8C0C213690D700B658F0 /* TRTracerouteRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCB8C06213690D700B658F0 /* TRTracerouteRecord.h */; };
+		9BCB8C0D213690D700B658F0 /* TRTraceroute.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCB8C07213690D700B658F0 /* TRTraceroute.h */; };
+		9BCB8C0E213690D700B658F0 /* TRTracerouteCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCB8C08213690D700B658F0 /* TRTracerouteCommon.h */; };
+		9BCB8C0F213690D700B658F0 /* TRTracerouteRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB8C09213690D700B658F0 /* TRTracerouteRecord.m */; };
+		9BCB8C10213690D700B658F0 /* TRTraceroute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB8C0A213690D700B658F0 /* TRTraceroute.m */; };
 		B0535F411CF2E9F100A1E7D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E91A0125E5001CBB3E /* AppDelegate.m */; };
 		B0535F421CF2E9F100A1E7D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6EC1A0125E5001CBB3E /* ViewController.m */; };
 		B0535F431CF2E9F100A1E7D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 629AF6E61A0125E5001CBB3E /* main.m */; };
@@ -91,7 +97,6 @@
 		507D0B191B71F08300C022DD /* LDNetGetAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetGetAddress.m; sourceTree = "<group>"; };
 		507D0B1B1B71FE1900C022DD /* LDNetConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDNetConnect.h; sourceTree = "<group>"; };
 		507D0B1C1B71FE1900C022DD /* LDNetConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDNetConnect.m; sourceTree = "<group>"; };
-		50C409FF1B736B6D00C0D877 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		620760621B74C27C00761E87 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
 		623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LDNetDiagnoService.podspec; sourceTree = "<group>"; };
 		629AF6E11A0125E5001CBB3E /* LDNetDiagnoServiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LDNetDiagnoServiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +122,13 @@
 		629AF7131A012630001CBB3E /* LDSimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSimplePing.h; sourceTree = "<group>"; };
 		629AF7141A012630001CBB3E /* LDSimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSimplePing.m; sourceTree = "<group>"; };
 		629AF71A1A012644001CBB3E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		9BCB8BE9213684E400B658F0 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		9BCB8C05213690D700B658F0 /* TRTracerouteCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRTracerouteCommon.m; sourceTree = "<group>"; };
+		9BCB8C06213690D700B658F0 /* TRTracerouteRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTracerouteRecord.h; sourceTree = "<group>"; };
+		9BCB8C07213690D700B658F0 /* TRTraceroute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTraceroute.h; sourceTree = "<group>"; };
+		9BCB8C08213690D700B658F0 /* TRTracerouteCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTracerouteCommon.h; sourceTree = "<group>"; };
+		9BCB8C09213690D700B658F0 /* TRTracerouteRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRTracerouteRecord.m; sourceTree = "<group>"; };
+		9BCB8C0A213690D700B658F0 /* TRTraceroute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRTraceroute.m; sourceTree = "<group>"; };
 		B0535F8C1CF2F07800A1E7D6 /* libLDNetDiagnoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libLDNetDiagnoService.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,7 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50C40A001B736B6D00C0D877 /* libresolv.dylib in Frameworks */,
+				9BCB8BEA213684E400B658F0 /* libresolv.tbd in Frameworks */,
 				629AF71B1A012644001CBB3E /* CoreTelephony.framework in Frameworks */,
 				2942AC9F1CEC3C650028B3C7 /* libLDNetDiagnoService.framework in Frameworks */,
 			);
@@ -177,7 +189,6 @@
 		629AF6D81A0125E5001CBB3E = {
 			isa = PBXGroup;
 			children = (
-				50C409FF1B736B6D00C0D877 /* libresolv.dylib */,
 				623DA6B51A0723C4002351F7 /* LDNetDiagnoService.podspec */,
 				629AF71A1A012644001CBB3E /* CoreTelephony.framework */,
 				629AF70A1A012630001CBB3E /* LDNetDiagnoService */,
@@ -186,6 +197,7 @@
 				2942AC8B1CEC3C650028B3C7 /* libLDNetDiagnoService */,
 				2942AC991CEC3C650028B3C7 /* libLDNetDiagnoServiceTests */,
 				629AF6E21A0125E5001CBB3E /* Products */,
+				9BCB8BE8213684E400B658F0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -243,6 +255,7 @@
 		629AF70A1A012630001CBB3E /* LDNetDiagnoService */ = {
 			isa = PBXGroup;
 			children = (
+				9BCB8C04213690D700B658F0 /* TRTraceroute */,
 				629AF70B1A012630001CBB3E /* LDNetDiagnoService.h */,
 				629AF70C1A012630001CBB3E /* LDNetDiagnoService.m */,
 				629AF70D1A012630001CBB3E /* LDNetPing.h */,
@@ -262,6 +275,27 @@
 			path = LDNetDiagnoService;
 			sourceTree = "<group>";
 		};
+		9BCB8BE8213684E400B658F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BCB8BE9213684E400B658F0 /* libresolv.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9BCB8C04213690D700B658F0 /* TRTraceroute */ = {
+			isa = PBXGroup;
+			children = (
+				9BCB8C07213690D700B658F0 /* TRTraceroute.h */,
+				9BCB8C0A213690D700B658F0 /* TRTraceroute.m */,
+				9BCB8C08213690D700B658F0 /* TRTracerouteCommon.h */,
+				9BCB8C05213690D700B658F0 /* TRTracerouteCommon.m */,
+				9BCB8C06213690D700B658F0 /* TRTracerouteRecord.h */,
+				9BCB8C09213690D700B658F0 /* TRTracerouteRecord.m */,
+			);
+			path = TRTraceroute;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -270,7 +304,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2942ACAF1CEC3CD40028B3C7 /* LDNetDiagnoService.h in Headers */,
+				9BCB8C0C213690D700B658F0 /* TRTracerouteRecord.h in Headers */,
 				B0535F8D1CF2F07800A1E7D6 /* libLDNetDiagnoService.h in Headers */,
+				9BCB8C0E213690D700B658F0 /* TRTracerouteCommon.h in Headers */,
 				2942ACB01CEC3CD40028B3C7 /* LDNetPing.h in Headers */,
 				2942ACB11CEC3CD40028B3C7 /* LDNetTimer.h in Headers */,
 				2942ACB21CEC3CD40028B3C7 /* LDNetTraceRoute.h in Headers */,
@@ -278,6 +314,7 @@
 				2942ACB41CEC3CD40028B3C7 /* LDSimplePing.h in Headers */,
 				2942ACB51CEC3CD40028B3C7 /* LDNetGetAddress.h in Headers */,
 				2942ACB61CEC3CD40028B3C7 /* Route.h in Headers */,
+				9BCB8C0D213690D700B658F0 /* TRTraceroute.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +406,7 @@
 				TargetAttributes = {
 					2942AC891CEC3C650028B3C7 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 35B2KE884X;
+						DevelopmentTeam = EU7A98TEPP;
 					};
 					2942AC921CEC3C650028B3C7 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -377,7 +414,7 @@
 					};
 					629AF6E01A0125E5001CBB3E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 35B2KE884X;
+						DevelopmentTeam = EU7A98TEPP;
 					};
 					629AF6F91A0125E5001CBB3E = {
 						CreatedOnToolsVersion = 6.1;
@@ -448,8 +485,11 @@
 			files = (
 				2942ACA81CEC3CC70028B3C7 /* LDNetDiagnoService.m in Sources */,
 				2942ACA91CEC3CC70028B3C7 /* LDNetPing.m in Sources */,
+				9BCB8C0F213690D700B658F0 /* TRTracerouteRecord.m in Sources */,
 				2942ACAA1CEC3CC70028B3C7 /* LDNetTimer.m in Sources */,
 				2942ACAB1CEC3CC70028B3C7 /* LDNetTraceRoute.m in Sources */,
+				9BCB8C10213690D700B658F0 /* TRTraceroute.m in Sources */,
+				9BCB8C0B213690D700B658F0 /* TRTracerouteCommon.m in Sources */,
 				2942ACAC1CEC3CC70028B3C7 /* LDNetConnect.m in Sources */,
 				2942ACAD1CEC3CC70028B3C7 /* LDSimplePing.m in Sources */,
 				2942ACAE1CEC3CC70028B3C7 /* LDNetGetAddress.m in Sources */,
@@ -528,6 +568,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EU7A98TEPP;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -556,6 +597,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EU7A98TEPP;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -693,6 +735,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = EU7A98TEPP;
 				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -709,6 +752,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Haiyang Zhang (4PCBVV7GWH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = EU7A98TEPP;
 				INFOPLIST_FILE = LDNetDiagnoServiceDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

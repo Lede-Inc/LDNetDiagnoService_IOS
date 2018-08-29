@@ -57,7 +57,7 @@
         [[UITextField alloc] initWithFrame:CGRectMake(130.0f, 79.0f, 180.0f, 50.0f)];
     _txtfield_dormain.delegate = self;
     _txtfield_dormain.returnKeyType = UIReturnKeyDone;
-    _txtfield_dormain.text = @"www.baidu.com";
+    _txtfield_dormain.text = @"m.hamo.tv";
     [self.view addSubview:_txtfield_dormain];
 
 
@@ -65,7 +65,7 @@
     _txtView_log.layer.borderWidth = 1.0f;
     _txtView_log.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _txtView_log.backgroundColor = [UIColor whiteColor];
-    _txtView_log.font = [UIFont systemFontOfSize:10.0f];
+    _txtView_log.font = [UIFont fontWithName:@"Courier New" size:10.0f];// [UIFont systemFontOfSize:10.0f];
     _txtView_log.textAlignment = NSTextAlignmentLeft;
     _txtView_log.scrollEnabled = YES;
     _txtView_log.editable = NO;
